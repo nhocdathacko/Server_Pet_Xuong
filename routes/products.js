@@ -17,7 +17,9 @@ router.get('/', async function (req, res, next) {
   // lấy danh sách sản phẩm từ database
   const data = await productController.getProducts();
 
+  //test xem dữ liệu đã về được chưa? RỒI
   res.json(data);
+  // mở trang sản phẩm
   //res.render('danhSach', { danhSach: data });
 });
 
@@ -26,20 +28,18 @@ router.get('/', async function (req, res, next) {
 // detail: thêm mới sản phẩm
 // author: Duy Tin 
 // date: 01/10/2022
-//middleware
 router.post('/insert', [upload.single('image')], async function (req, res, next) {
   let { body, file } = req;
   let image = '';
   if (file) {
-    //nhà
-    // image = `http://192.168.1.34:3000/images/${file.filename}`;
-    //trường
     image = `http://192.168.100.125:3000/images/${file.filename}`;
   }
   body = { ...body, image: image }
   await productController.insert(body);
   res.redirect('products');
 });
+
+
 //http://localhost:3000/products/:id/delete
 // method: delete
 // author: Duy Tin
@@ -52,51 +52,63 @@ router.delete('/:id/delete', async function (req, res, next) {
   res.json({ result: true });
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//http://localhost:3000/san-pham/:id/edit
+//http://localhost:3000/products/:id/edit
 // method: get
 // detail: lấy thông tin chi tiết 1 sản phẩm
-// date: 17/3/2022
-router.get('/:id/edit', [authentication.checkLogin], async function (req, res, next) {
+// author: Duy Tin
+// date: 05/10/2022
+router.get('/:id/edit', async function (req, res, next) {
   // lấy thông tin chi tiết 1 sản phẩm
   const { id } = req.params;
   const product = await productController.getProductById(id);
   const categories = await categoryController.getCategoriesForOneProduct(product.category_id._id);
-  res.render('capNhatPhuKien', { product: product, categories: categories });
+  
+  //test xem dữ liệu đã về được chưa? RỒI
+  res.json(product);
+
+  //mở trang chi tiết của 1 sản phẩm
+  //res.render('capNhatPhuKien', { product: product, categories: categories });
+  
 });
 
-//http://localhost:3000/san-pham/:id/edit
+//http://localhost:3000/products/:id/edit
 // method: post
 // detail: cập nhật thông tin chi tiết 1 sản phẩm
-// date: 17/3/2022
+// author: Duy Tin
+// date: 05/10/2022
 router.post('/:id/edit', [upload.single('image')], async function (req, res, next) {
   // cập nhật thông tin chi tiết 1 sản phẩm
   let { body, file, params } = req;
   delete body.image;
   if (file) {
-    //nhà
-    // let image = `http://192.168.1.34:3000/images/${file.filename}`;
-    //trường
-    let image = `http://10.82.151.26:3000/images/${file.filename}`;
+    let image = `http://192.168.100.125:3000/images/${file.filename}`;
     body = { ...body, image: image };
   }
   await productController.update(params.id, body);
-  res.redirect('/san-pham');
+
+  // mở lại trang sản phẩm
+  res.redirect('/products');
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -13,7 +13,7 @@ exports.getProducts = async () => {
             quantity: item.Quantity,
             image: item.Image,
             isPet: item.IsPet,
-            isShop: item.IsShop,
+            isStop: item.IsStop,
             category_id: item.category_id,
             index: index + 1
         }
@@ -28,13 +28,15 @@ exports.getProducts = async () => {
 exports.getProductById = async (id) => {
     let product = await productService.getProductById(id);
     product = {
-        release: date.format(product.release),
         _id: product._id,
-        name: product.name,
-        price: product.price,
-        quantity: product.quantity,
-        image: product.image,
-        description: product.description,
+        name: product.Name,
+        price: product.Price,
+        describes: product.Describes,
+        evaluate: product.Evaluate,
+        quantity: product.Quantity,
+        image: product.Image,
+        isPet: product.IsPet,
+        isStop: product.IsStop,
         category_id: product.category_id,
     }
     return product;
