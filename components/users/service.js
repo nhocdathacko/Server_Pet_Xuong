@@ -2,21 +2,17 @@
 
 const userModel = require('./model');
 
-exports.dangNhap = async (email) => {
-    const user = await userModel.findOne({ email: email }, 'id email password');
-    return user;
-}
 exports.checkEmail = async (email) => {
-    const user = await userModel.findOne({ email: email }, 'id email password');
+    const user = await userModel.findOne({ email: email }, 'id name username email phone password');
     return user;
 }
 
 exports.checkPhone = async (phone) => {
-    const user = await userModel.findOne({ phone: phone }, 'id phone password');
+    const user = await userModel.findOne({ phone: phone },  'id name username email phone password');
     return user;
 }
 exports.checkUsername = async (username) => {
-    const user = await userModel.findOne({ username: username }, 'id username password');
+    const user = await userModel.findOne({ username: username },  'id name username email phone password');
     return user;
 }
 
