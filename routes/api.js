@@ -16,7 +16,7 @@ router.post('/login', async function (req, res, next) {
   if (result) {
     // token lấy ở đây
     const token = jwt.sign({ id: result.id, username: result.username }, 'iloveyou');
-    res.json({ status: true, result, token });
+    res.json({ status: true, result });
   } else {
     res.json({ status: false });
   }
