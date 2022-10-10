@@ -13,13 +13,13 @@ exports.dangNhap = async (userx, password) => {
         const checkPassword = await bcrypt.compare(password, userEmail.password);
         if (!checkPassword) return null;
         console.log(userEmail.name  + "userEmail");
-        return { _id: userEmail._id, name: userEmail.name, username: userEmail.username, username: userEmail.username, phone: userEmail.username };
+        return { _id: userEmail._id, name: userEmail.name, username: userEmail.username, email: userEmail.email, phone: userEmail.phone };
     }
     if(userUsername){
         const checkPassword = await bcrypt.compare(password, userUsername.password);
         if (!checkPassword) return null;
         console.log(userUsername.name  + "userUsername");
-        return { _id: userUsername._id, name: userUsername.name, username: userUsername.username, username: userUsername.username, phone: userUsername.username };
+        return { _id: userUsername._id, name: userUsername.name, username: userUsername.username, email: userUsername.email, phone: userUsername.phone };
     }
     
     
