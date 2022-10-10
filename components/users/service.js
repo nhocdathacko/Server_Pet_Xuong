@@ -2,6 +2,9 @@
 
 const userModel = require('./model');
 
+
+
+
 exports.checkEmail = async (email) => {
     const user = await userModel.findOne({ email: email }, 'id name username email phone password');
     return user;

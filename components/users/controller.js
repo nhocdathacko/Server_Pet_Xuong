@@ -4,10 +4,10 @@ const userService = require('./service');
 
 const bcrypt = require('bcryptjs');
 
-exports.dangNhap = async (username, email, password) => {
+exports.dangNhap = async (userx, password) => {
     
-    let userEmail = await userService.checkEmail(email);
-    let userUsername = await userService.checkUsername(username);
+    let userEmail = await userService.checkEmail(userx);
+    let userUsername = await userService.checkUsername(userx);
     if(!userEmail && !userUsername ) return null;
     if(userEmail){
         const checkPassword = await bcrypt.compare(password, userEmail.password);
@@ -16,7 +16,7 @@ exports.dangNhap = async (username, email, password) => {
         return { _id: userEmail._id, name: userEmail.name, username: userEmail.username, username: userEmail.username, phone: userEmail.username };
     }
     if(userUsername){
-        const checkPassword = await bcryconsole.log(userEmail.name  );pt.compare(password, userUsername.password);
+        const checkPassword = await bcrypt.compare(password, userUsername.password);
         if (!checkPassword) return null;
         console.log(userUsername.name  + "userUsername");
         return { _id: userUsername._id, name: userUsername.name, username: userUsername.username, username: userUsername.username, phone: userUsername.username };

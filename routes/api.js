@@ -9,8 +9,8 @@ const authentication = require('../components/middle/authentication');
 // http://localhost:3000/api/login
 
 router.post('/login', async function (req, res, next) {
-  const { username, email, password } = req.body;
-  const result = await userController.dangNhap(username, email, password);
+  const { userx, password } = req.body;
+  const result = await userController.dangNhap(userx, password);
   if (result) {
     // token lấy ở đây
     const token = jwt.sign({ id: result.id, username: result.username }, 'iloveyou');
