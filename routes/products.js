@@ -54,19 +54,6 @@ router.delete('/:id/delete', async function (req, res, next) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 //http://localhost:3000/san-pham/:id/edit
 // method: get
 // detail: lấy thông tin chi tiết 1 sản phẩm
