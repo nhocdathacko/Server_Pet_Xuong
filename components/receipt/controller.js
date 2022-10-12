@@ -1,7 +1,10 @@
 const receiptService = require('./service');
 const date = require('../../utils/date');
 const async = require('hbs/lib/async');
+const detailreceiptController = require('../detiledrececeipt/controller');
 
+
+// lấy thông tin lịch sử giao dịch
 exports.getReceipts = async () => {
     let data = await receiptService.getReceipts();
     data = data.map((item, index) => {
@@ -21,8 +24,12 @@ exports.getReceipts = async () => {
     return data;
 }
 
+// lấy thông tin giỏ hàng nếu không có giỏ hàng thì sẽ tạo giỏi hàng mới
 exports.getReceiptById = async (id) => {
     let receipt = await receiptService.getReceiptById(id);
+    if (!receipt) {
+       receipt = await this.insert(id);
+    }
     return receipt;
 }
 

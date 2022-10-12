@@ -1,7 +1,21 @@
 const deReceiptService = require('./service');
 const date = require('../../utils/date');
 const async = require('hbs/lib/async');
+const receiptController = require('../receipt/controller');
 
+
+// lấy dữ liệu chi tiết giỏ hàng (nếu chưa có giỏ hàng thì sẽ tạo giỏ)
+exports.getDetailReceiptsCartUser = async (id) => {
+    let cart = await receiptController.getReceiptsCart(id);
+    if(cart){
+      let data = await this.getDeReceiptByReceiptId(cart._id);
+      return data;
+    }else{
+      cart = await receiptController.insert(id);
+      let data = await this.getDeReceiptByReceiptId(cart.ReceiptId);
+      return data;
+    }
+}
 exports.getDeReceipts = async () => {
     let data = await deReceiptService.getDeReceipt();
     data = data.map((item, index) => {
