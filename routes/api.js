@@ -7,7 +7,7 @@ const productController = require('../components/products/controller');
 const evaluatedController = require('../components/evaluated/controller');
 
 const authentication = require('../components/middle/authentication');
-
+const favoriteController = require('../components/favorite/favorite')
 // http://localhost:3000/api/login
 
 router.post('/login', async function (req, res, next) {
@@ -35,7 +35,24 @@ router.post('/register', async function (req, res, next) {
   }
 });
 
+router.get('/favorite',async function(req,res,next){
+  const f = await favoriteController.getAllFavorite()
+  res.json(f)
+})
+router.post('/favorite/create', async (req, res, next) => {
+  const { user_id, product_id } = req.body
+  const f = await favoriteController.insertFavorite({ user_id, product_id })
+  if (f) {
+    return res.status(200).json({success:true,msg:'insert success!!'})
+  }
+  res.status(401).json({success:false,msg:'insert failed!!!'})
+})
 
+router.delete('/favorite/:id',async function(req,res,next){
+  const {id} = req.params
+  await favoriteController.deleteFavorite(id)
+  return res.json({success:true,msg:'delete success!!'})
+})
 
 
 // http://localhost:3000/api/products
@@ -55,6 +72,7 @@ router.get('/products/:id/detail', [authentication.checkToken], async function (
   res.json(product);
 });
 
+<<<<<<< HEAD
 
 /// evaluated
 //author : Tran Quang Dao
@@ -88,3 +106,6 @@ router.post('/evaluated/update', async (req, res, next) => {
   console.log(id, point);
 })
 module.exports = router;
+=======
+module.exports = router;
+>>>>>>> pr/1
