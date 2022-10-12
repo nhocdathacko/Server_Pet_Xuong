@@ -72,7 +72,6 @@ router.get('/products/:id/detail', [authentication.checkToken], async function (
   res.json(product);
 });
 
-<<<<<<< HEAD
 
 /// evaluated
 //author : Tran Quang Dao
@@ -106,6 +105,3 @@ router.post('/evaluated/update', async (req, res, next) => {
   console.log(id, point);
 })
 module.exports = router;
-=======
-module.exports = router;
->>>>>>> pr/1
