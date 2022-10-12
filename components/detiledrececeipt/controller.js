@@ -19,6 +19,24 @@ exports.getDeReceipts = async () => {
     console.log('controller>>>>>>>>', data);
     return data;
 }
+exports.getDeReceiptByReceiptId = async (ReceiptId) => {
+    let data = await deReceiptService.getDeReceiptByReceiptId(ReceiptId);
+    if (data) {
+        data = data.map((item, index) => {
+            item = {
+                _id: item._id,
+                receipt_id: item.ReceiptId,
+                product_id: item.ProductId,
+                quantity: item.Quantity,
+                price: item.Price
+            }
+            return item;
+            
+        })
+    }
+    console.log('controller>>>>>>>>', data);
+    return data;
+}
 
 exports.getDeReceiptById = async (id) => {
     let receipt = await deReceiptService.getDeReceiptById(id);
@@ -34,7 +52,11 @@ exports.getDeReceiptById = async (id) => {
 
 
 exports.insert = async (body) => {
-    await deReceiptService.insert(body);
+    const data = await deReceiptService.insert(body);
+    if (!data) {
+        return false;
+    }
+    return true;
 }
 
 exports.delete = async (id) => {

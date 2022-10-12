@@ -5,9 +5,12 @@ const jwt = require('jsonwebtoken');
 const userController = require('../components/users/controller');
 const productController = require('../components/products/controller');
 const evaluatedController = require('../components/evaluated/controller');
-
 const authentication = require('../components/middle/authentication');
-const favoriteController = require('../components/favorite/favorite')
+const favoriteController = require('../components/favorite/favorite');
+const receiptController = require('../components/receipt/controller');
+const detailreceiptController = require('../components/detiledrececeipt/controller');
+
+
 // http://localhost:3000/api/login
 
 router.post('/login', async function (req, res, next) {
@@ -104,4 +107,25 @@ router.post('/evaluated/update', async (req, res, next) => {
   const update = await evaluatedController.update(id, point)
   console.log(id, point);
 })
+
+// Đinh Quốc Đạt
+// Giỏ hàng
+// Tạo giỏ hàng và hiện thông tin giỏ hàng
+// http://localhost:3000/api/cart/:id
+router.get('/cart/:id', async function (req, res, next) {
+  const {id} = req.params;
+  let cart = await receiptController.getReceiptsCart(id);
+  if(cart){
+    let data = await detailreceiptController.getDeReceiptByReceiptId(cart._id);
+    res.json({ data: data});
+  }else{
+    cart = await receiptController.insert(id);
+    let data = await detailreceiptController.getDeReceiptByReceiptId(cart.ReceiptId);
+    res.json({ data: data});
+  }
+  
+});
+
+
+
 module.exports = router;

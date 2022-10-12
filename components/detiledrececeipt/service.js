@@ -10,11 +10,19 @@ exports.getDeReceiptById = async (id) => {
     const deReceipt = await deReceiptModel.findById(id).populate('receipt_id');
     return deReceipt;
 }
+exports.getDeReceiptByReceiptId = async (ReceiptId) => {
+    const deReceipt = await deReceiptModel.find({ReceiptId: ReceiptId});
+    console.log("<>><><>"+ReceiptId);
+    return deReceipt;
+}
 
 exports.insert = async (product) => {
     // data.push(product);
     const p = new deReceiptModel(product);
-    await p.save();
+    await p.save().then((data) =>{
+        return data
+    })
+    .catch((error) => console.log(error));;
 }
 
 exports.delete = async (id) => {
@@ -29,8 +37,8 @@ exports.update = async (id, set) => {
     const { Quantity } = detailedreceipt;
 
     if(set == 0){
-        const update = await deReceiptModel.findByIdAndUpdate(id, {Quantity: Quantity - 1});
+        const update = await deReceiptModel.findByIdAndUpdate(id, {Quantity: Quantity});
     }else if(set == 1){
-        const update = await deReceiptModel.findByIdAndUpdate(id, {Quantity: Quantity + 1});
+        const update = await deReceiptModel.findByIdAndUpdate(id, {Quantity: Quantity});
     }
 }
