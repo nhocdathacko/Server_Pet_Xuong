@@ -1,5 +1,5 @@
+const async = require('hbs/lib/async');
 const productService = require('./service');
-const date = require('../../utils/date');
 
 exports.getProducts = async () => {
     let data = await productService.getProducts();
@@ -52,4 +52,28 @@ exports.delete = async (id) => {
 
 exports.update = async (id, product) => {
     await productService.update(id, product);
+}
+
+exports.getProductsByType = async () => {
+    let data = await productService.getAccessories();
+    data = data.map((item, index) => {
+        item = {
+            _id: item._id,
+            name: item.Name,
+            price: item.Price,
+            describes: item.Describes,
+            evaluate: item.Evaluate,
+            quantity: item.Quantity,
+            image: item.Image,
+            isPet: item.IsPet,
+            isStop: item.IsStop,
+            category_id: item.category_id,
+            index: index + 1
+        }
+        
+        return item;
+        
+    })
+    console.log('DANH SACH SP TU CONTROLLER', data);
+    return data;
 }

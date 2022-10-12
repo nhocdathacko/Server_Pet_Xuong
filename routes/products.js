@@ -23,6 +23,7 @@ router.get('/', async function (req, res, next) {
   //res.render('danhSach', { danhSach: data });
 });
 
+
 //http://localhost:3000/products/insert/
 // method: post
 // detail: thêm mới sản phẩm
@@ -88,6 +89,20 @@ router.post('/:id/edit', [upload.single('image')], async function (req, res, nex
 
   // mở lại trang sản phẩm
   res.redirect('/products');
+});
+
+
+//http://localhost:3000/products/accessories
+// method: get
+// detail: lấy tất cả sản phẩm trong đó mỗi sản phẩm là một phụ kiện và phụ kiện đó vẫn còn đang bán
+// author: Duy Tin
+// date: 12/10/2022
+router.get('/accessories', async function (req, res, next) {
+  // lấy danh sách sản phẩm từ database
+  const data = await productController.getProductsByType(0);
+
+  //test xem dữ liệu đã về được chưa? RỒI
+  res.json(data);
 });
 
 

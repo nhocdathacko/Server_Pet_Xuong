@@ -35,3 +35,17 @@ exports.delete = async (id) => {
 exports.update = async (id, product) => {
     await productModel.findByIdAndUpdate(id, product);
 }
+
+/**
+ * lấy thông tin chi tiết 1 sản phẩm trong đó sản phẩm là 1 phụ kiện
+ */
+ exports.getAccessories = async () => {
+/**
+ * Selec id, name, price, descibes, evaluated, category_id, quantity, image, isPet, isStop
+ * from product 
+ * where isPet = true
+ */
+    const products = await productModel.find({IsPet: false, IsStop: false});
+    console.log(">>>>>>>>   DANH SACH SP TU SERVICE", products);
+    return products;
+}
