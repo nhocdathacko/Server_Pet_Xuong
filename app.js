@@ -11,12 +11,8 @@ const mongoose = require('mongoose');
 require('./components/users/model');
 require('./components/category/model');
 require('./components/products/model');
-<<<<<<< HEAD
 require('./components/detiledrececeipt/model');
 require('./components/receipt/model');
-=======
-require('./components/favorite/model')
->>>>>>> pr/1
 
 //routes
 var indexRouter = require('./routes/index');

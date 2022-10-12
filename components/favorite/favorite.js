@@ -18,9 +18,5 @@ exports.updateFavorite = async function(id){
     await favoriteModel.findOneAndUpdate({_id:id})
 }
 exports.deleteFavorite = async function(id){
-<<<<<<< Updated upstream
     await favoriteModel.deleteOne({_id:id})
-=======
-    await favoriteModel.remove({_id:id})
->>>>>>> Stashed changes
 }
