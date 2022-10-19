@@ -11,6 +11,12 @@ const receiptController = require('../components/receipt/controller');
 const detailreceiptController = require('../components/detiledrececeipt/controller');
 
 
+// http://localhost:3000/api/get-all-user
+router.get('/get-all-user',async function(req,res,next){
+  const u = await userController.getAllUser();
+  res.json(u)
+})
+
 // http://localhost:3000/api/login
 
 router.post('/login', async function (req, res, next) {
@@ -114,17 +120,36 @@ router.post('/evaluated/update', async (req, res, next) => {
 // http://localhost:3000/api/cart/:id
 router.get('/cart/:id', async function (req, res, next) {
   const {id} = req.params;
-  let cart = await receiptController.getReceiptsCart(id);
-  if(cart){
-    let data = await detailreceiptController.getDeReceiptByReceiptId(cart._id);
-    res.json({ data: data});
-  }else{
-    cart = await receiptController.insert(id);
-    let data = await detailreceiptController.getDeReceiptByReceiptId(cart.ReceiptId);
-    res.json({ data: data});
-  }
+  // let cart = await receiptController.getReceiptsCart(id);
+  // if(cart){
+  //   let data = await detailreceiptController.getDeReceiptByReceiptId(cart._id);
+  //   res.json({ data: data});
+  // }else{
+  //   cart = await receiptController.insert(id);
+  //   let data = await detailreceiptController.getDeReceiptByReceiptId(cart.ReceiptId);
+  //   res.json({ data: data});
+  // }
+   let cart = await receiptController.getReceiptById(id);
+   let data = await detailreceiptController.getDeReceiptByReceiptId(cart.id);
+   res.json({ data: data});
   
 });
+// Đinh Quốc Đạt
+// Giỏ hàng
+// Thêm sản phẩm vào giỏ gàng
+// http://localhost:3000/api/cart/add/:id
+router.post('/cart/add/:id', async (req, res, next) => {
+  // id user ởđịa chỉ
+  const {id} = req.params;
+  const cart = await receiptController.getReceiptById(id);
+  // body = {ReceiptId, ProductId, Quantity, Price} trong đó ReceiptId trống
+  const data = req.body;
+  data.ReceiptId = cart._id;
+  console.log(cart);
+  console.log(data);
+  const detailCart = await detailreceiptController.insert(data);
+  res.json({ detailCart: detailCart});
+})
 
 
 

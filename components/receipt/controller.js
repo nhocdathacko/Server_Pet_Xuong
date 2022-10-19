@@ -26,9 +26,10 @@ exports.getReceipts = async () => {
 
 // lấy thông tin giỏ hàng nếu không có giỏ hàng thì sẽ tạo giỏi hàng mới
 exports.getReceiptById = async (id) => {
-    let receipt = await receiptService.getReceiptById(id);
+    let receipt = await receiptService.getReceiptsCart(id);
     if (!receipt) {
-       receipt = await this.insert(id);
+       await this.insert(id);
+       receipt = await receiptService.getReceiptsCart(id);
     }
     return receipt;
 }
@@ -48,6 +49,7 @@ exports.getReceiptsForOneProduct = async (selectedId) => {
     return receipts;
 }
 
+// lấy thông tin giỏ hàng theo user
 exports.getReceiptsCart = async (id) => {
     let item = await receiptService.getReceiptsCart(id);
     console.log(item);

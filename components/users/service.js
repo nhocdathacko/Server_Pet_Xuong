@@ -24,3 +24,8 @@ exports.register = async (name, username, email, phone, password) => {
     const user = new userModel({ name, image, username, email, phone, password });
     return await user.save();
 }
+
+exports.getAllUser = async () => {
+    const user = await userModel.find();
+    return user;
+}

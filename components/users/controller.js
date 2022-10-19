@@ -36,4 +36,7 @@ exports.register = async (name, username, email, phone, password) => {
     return true;
 }
 
-
+exports.getAllUser = async () => {
+    let user = await userService.getAllUser();
+    return user;
+}

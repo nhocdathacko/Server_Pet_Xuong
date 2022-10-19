@@ -68,9 +68,9 @@ exports.getDeReceiptById = async (id) => {
 exports.insert = async (body) => {
     const data = await deReceiptService.insert(body);
     if (!data) {
-        return false;
+        return true;
     }
-    return true;
+    return false;
 }
 
 exports.delete = async (id) => {
