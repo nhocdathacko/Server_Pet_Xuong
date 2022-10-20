@@ -10,14 +10,85 @@ const favoriteController = require('../components/favorite/favorite');
 const receiptController = require('../components/receipt/controller');
 const detailreceiptController = require('../components/detiledrececeipt/controller');
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     TestSwagger:
+ *       type: object
+ *       required:
+ *         - name
+ *         - image
+ *         - username
+ *         - email
+ *         - phone
+ *         - password
+ *       properties:
+ *         id:
+ *           type: string
+ *           description: id of user
+ *         name:
+ *           type: string
+ *           description: name of user
+ *         image:
+ *           type: string
+ *           description: image of user
+ *         username:
+ *           type: string
+ *           description: name's login of user 
+ *         email:
+ *           type: string
+ *           description: email of user 
+ *         phone:
+ *           type: string
+ *           description: telephone number of user 
+ *         password:
+ *           type: string
+ *           description: pass of user 
+ *       example:
+ *         id: obg123124124124hahbgn214120
+ *         name: Swagger
+ *         image: https://photo2.tinhte.vn/data/attachment-files/2021/07/5557920_CV.jpg
+ *         username: testswagger
+ *         email: testswagger@gmail.com
+ *         phone: "0123456789"
+ *         password: nahncjanvianvahvav=yuav$bK^BVC*bhcv
+ */
 
-// http://localhost:3000/api/get-all-user
-router.get('/get-all-user',async function(req,res,next){
-  const u = await userController.getAllUser();
-  res.send(u)
-})
+/**
+  * @swagger
+  * tags:
+  *   name: TestSwagger
+  *   description: The TestSwagger managing API
+  */
 
-// http://localhost:3000/api/login
+
+// ---------------------------------------------------------------
+
+/**
+ * @swagger
+ * /swagger/login:
+ *   post:
+ *     summary: login user
+ *     tags: [TestSwagger]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/TestSwagger'
+ *     responses:
+ *       200:
+ *         description: The user was successfully login
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/TestSwagger'
+ *       500:
+ *         description: Some server error
+ */
+
+// http://localhost:3000/swagger/login
 
 router.post('/login', async function (req, res, next) {
   const { userx, password } = req.body;

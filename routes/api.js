@@ -17,8 +17,9 @@ router.get('/get-all-user',async function(req,res,next){
   res.json(u)
 })
 
-// http://localhost:3000/api/login
 
+
+// http://localhost:3000/api/login
 router.post('/login', async function (req, res, next) {
   const { userx, password } = req.body;
   const result = await userController.dangNhap(userx, password);
