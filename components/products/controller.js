@@ -74,6 +74,29 @@ exports.getProductsByType = async () => {
         return item;
         
     })
-    console.log('DANH SACH SP TU CONTROLLER', data);
+    return data;
+}
+
+
+exports.getProductsByTypeAndSoft = async () => {
+    let data = await productService.getAccessoriesAndSoft();
+    data = data.map((item, index) => {
+        item = {
+            _id: item._id,
+            name: item.Name,
+            price: item.Price,
+            describes: item.Describes,
+            evaluate: item.Evaluate,
+            quantity: item.Quantity,
+            image: item.Image,
+            isPet: item.IsPet,
+            isStop: item.IsStop,
+            category_id: item.category_id,
+            index: index + 1
+        }
+        
+        return item;
+        
+    })
     return data;
 }
