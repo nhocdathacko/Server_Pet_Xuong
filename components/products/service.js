@@ -37,7 +37,7 @@ exports.update = async (id, product) => {
 }
 
 /**
- * lấy thông tin chi tiết 1 sản phẩm trong đó sản phẩm là 1 phụ kiện
+ * lấy thông tin  sản phẩm thuộc phụ kiện
  */
  exports.getAccessories = async () => {
 /**
@@ -49,3 +49,11 @@ exports.update = async (id, product) => {
     console.log(">>>>>>>>   DANH SACH SP TU SERVICE", products);
     return products;
 }
+/**
+ * lấy thông tin  sản phẩm thuộc phụ kiện
+ */
+ exports.getAllPet = async () => {
+        const products = await productModel.find({IsPet: true, IsStop: false});
+        return products;
+}
+    

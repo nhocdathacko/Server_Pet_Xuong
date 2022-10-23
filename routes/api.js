@@ -17,7 +17,11 @@ router.get('/get-all-user',async function(req,res,next){
   res.json(u)
 })
 
-
+router.get('/abc', async function (req, res, next) {
+   const data = "gehooooo";
+   res.json({ data: data});
+  
+});
 
 // http://localhost:3000/api/login
 router.post('/login', async function (req, res, next) {
@@ -121,15 +125,6 @@ router.post('/evaluated/update', async (req, res, next) => {
 // http://localhost:3000/api/cart/:id
 router.get('/cart/:id', async function (req, res, next) {
   const {id} = req.params;
-  // let cart = await receiptController.getReceiptsCart(id);
-  // if(cart){
-  //   let data = await detailreceiptController.getDeReceiptByReceiptId(cart._id);
-  //   res.json({ data: data});
-  // }else{
-  //   cart = await receiptController.insert(id);
-  //   let data = await detailreceiptController.getDeReceiptByReceiptId(cart.ReceiptId);
-  //   res.json({ data: data});
-  // }
    let cart = await receiptController.getReceiptById(id);
    let data = await detailreceiptController.getDeReceiptByReceiptId(cart.id);
    res.json({ data: data});
@@ -143,14 +138,28 @@ router.post('/cart/add/:id', async (req, res, next) => {
   // id user ởđịa chỉ
   const {id} = req.params;
   const cart = await receiptController.getReceiptById(id);
-  // body = {ReceiptId, ProductId, Quantity, Price} trong đó ReceiptId trống
   const data = req.body;
   data.ReceiptId = cart._id;
-  console.log(cart);
-  console.log(data);
   const detailCart = await detailreceiptController.insert(data);
   res.json({ detailCart: detailCart});
 })
+
+// Đào Duy Tín
+// Sản phẩm
+// Xuất ds sp là phụ kiện
+// http://localhost:3000/api/product/not-pet
+router.get('/product/not-pet', async function (req, res, next) {
+  const data = await productController.getProductsByType();
+   res.json({ data: data});
+});
+// Nguyễn Trọng Trường
+// Sản phẩm
+// Xuất ds sp là thú cưng
+// http://localhost:3000/api/product/is-pet
+router.get('/product/is-pet', async function (req, res, next) {
+  const data = await productController.getProductsIsPet();
+   res.json({ data: data});
+});
 
 
 

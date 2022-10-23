@@ -54,8 +54,20 @@ exports.update = async (id, product) => {
     await productService.update(id, product);
 }
 
+
+// lấy sản phẩm thuộc phụ kiện
 exports.getProductsByType = async () => {
-    let data = await productService.getAccessories();
+    let products = await productService.getAccessories();
+    let data = this.getProductsItems(products);
+    return data;
+}
+// lấy sản phẩm thuộc thú cưng
+exports.getProductsIsPet = async () => {
+    let products = await productService.getAllPet();
+    let data = this.getProductsItems(products);
+    return data;
+}
+exports.getProductsItems = async (data) => {
     data = data.map((item, index) => {
         item = {
             _id: item._id,
@@ -68,12 +80,10 @@ exports.getProductsByType = async () => {
             isPet: item.IsPet,
             isStop: item.IsStop,
             category_id: item.category_id,
-            index: index + 1
         }
         
         return item;
         
     })
-    console.log('DANH SACH SP TU CONTROLLER', data);
     return data;
 }
