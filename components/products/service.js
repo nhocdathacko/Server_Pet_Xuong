@@ -57,3 +57,13 @@ exports.update = async (id, product) => {
         return products;
 }
     
+
+
+/**
+ * lấy thông tin chi tiết 1 sản phẩm trong đó sản phẩm là 1 phụ kiện 
+ * và sắp xếp theo điểm đánh giá
+ */
+ exports.getAccessoriesAndSoft = async () => {
+        const products = await productModel.find({IsPet: false, IsStop: false}).sort({point: 1});
+        return products;
+    }

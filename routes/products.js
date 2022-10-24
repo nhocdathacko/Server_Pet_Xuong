@@ -105,6 +105,20 @@ router.get('/accessories', async function (req, res, next) {
   res.json(data);
 });
 
+//http://localhost:3000/products/accessories/evaluated
+// method: get
+// detail: lấy tất cả sản phẩm trong đó mỗi sản phẩm là một phụ kiện và phụ kiện đó vẫn còn đang bán
+// nhưng sắp xếp theo điểm đánh giá
+// author: Duy Tin
+// date: 12/10/2022
+router.get('/accessories/evaluated', async function (req, res, next) {
+  // lấy danh sách sản phẩm từ database
+  const data = await productController.getProductsByTypeAndSoft(0);
+  //test xem dữ liệu đã về được chưa? RỒI
+  res.json(data);
+});
+
+
 
 
 
