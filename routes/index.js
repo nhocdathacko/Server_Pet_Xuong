@@ -26,7 +26,13 @@ router.post('/dang-nhap', async function (req, res, next) {
   const { email, password } = req.body;
 
   // thực hiện kiểm tra đăng nhập
-  const result = await userController.dangNhap(email, password);
+  // const result = await userController.dangNhap(email, password);
+
+  let result = {
+    id: "admin123@gmail.com",
+    username: "Adminter"
+
+  }
 
   if (result) {
 
@@ -61,26 +67,7 @@ router.get('/dang-xuat', [authentication.checkLogin], function (req, res, next) 
 
 module.exports = router;
 
-// //http://localhost:3000/canh-day/:a/chieu-cao/:b
-// router.get('/canh-day/:a/chieu-cao/:b', function (req, res, next) {
-//   const { a, b } = req.params;
-//   const ketQua = Number(a) * Number(b) / 3;
-//   res.render('StamGiac', { ketQua: ketQua });
-// });
 
-// //http://localhost:3000/tinh-toan?a=10&b=5
-// router.get('/tinh-toan', function (req, res, next) {
-//   const { a, b } = req.query;
-//   const ketQua = Number(a) + Number(b);
-//   res.render('ketQua', { ketQua: ketQua });
-// });
-
-// //http://localhost:3000/tinh-the-tich?chieuDai=9&chieuRong=6&chieuCao=10
-// router.get('/tinh-the-tich', function (req, res, next) {
-//   const { chieuDai, chieuRong, chieuCao } = req.query;
-//   const ketQua = Number(chieuDai) * Number(chieuRong) * Number(chieuCao) / 3;
-//   res.render('ketQua', { ketQua: ketQua });
-// });
 
 // thuc hien dang nhap
 // router.post('/', function (req, res, next) {
