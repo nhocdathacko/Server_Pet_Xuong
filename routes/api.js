@@ -3,6 +3,7 @@ var router = express.Router();
 
 const jwt = require('jsonwebtoken');
 const userController = require('../components/users/controller');
+const categoriesController = require('../components/category/controller');
 const productController = require('../components/products/controller');
 const evaluatedController = require('../components/evaluated/controller');
 const authentication = require('../components/middle/authentication');
@@ -34,7 +35,6 @@ router.post('/login', async function (req, res, next) {
 
 
 // http://localhost:3000/api/register
-
 router.post('/register', async function (req, res, next) {
   const { name, username, email, phone, password } = req.body;
   const result = await userController.register(name, username, email, phone, password);
@@ -43,6 +43,12 @@ router.post('/register', async function (req, res, next) {
   } else {
     res.json({ status: false });
   }
+});
+
+// http://localhost:3000/api/get-all-category
+router.get('/get-all-category', async function (req, res, next) {
+  const data = await categoriesController.getCategories();
+  res.json(data);
 });
 
 router.get('/favorite',async function(req,res,next){
@@ -68,6 +74,7 @@ router.delete('/favorite/:id',async function(req,res,next){
 // http://localhost:3000/api/products
 // thêm middle kiểm tra login
 
+// khi nào login, có token thì mới lấy được danh sách sản phẩm
 router.get('/products', async function (req, res, next) {
   const products = await productController.getProducts();
   res.json(products);
