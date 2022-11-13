@@ -45,15 +45,15 @@ exports.update = async (id, product) => {
  * from product 
  * where isPet = true
  */
-    const products = await productModel.find({IsPet: false, IsStop: false});
-    console.log(">>>>>>>>   DANH SACH SP TU SERVICE", products);
+    const products = await productModel.find({IsPet: false, IsStop: false}).populate('category_id');
+    // console.log(">>>>>>>>   DANH SACH SP TU SERVICE", products);
     return products;
 }
 /**
  * lấy thông tin  sản phẩm thuộc phụ kiện
  */
  exports.getAllPet = async () => {
-        const products = await productModel.find({IsPet: true, IsStop: false});
+        const products = await productModel.find({IsPet: true, IsStop: false}).populate('category_id');
         return products;
 }
     
@@ -64,6 +64,6 @@ exports.update = async (id, product) => {
  * và sắp xếp theo điểm đánh giá
  */
  exports.getAccessoriesAndSoft = async () => {
-        const products = await productModel.find({IsPet: false, IsStop: false}).sort({point: 1});
+        const products = await productModel.find({IsPet: false, IsStop: false}).sort({point: 1}).populate('category_id');
         return products;
     }

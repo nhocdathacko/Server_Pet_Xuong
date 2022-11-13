@@ -4,6 +4,8 @@ const productService = require('./service');
 exports.getProducts = async () => {
     let data = await productService.getProducts();
     data = data.map((item, index) => {
+        let nameC = item.category_id;
+        // console.log(nameC);
         item = {
             _id: item._id,
             name: item.Name,
@@ -14,20 +16,20 @@ exports.getProducts = async () => {
             image: item.Image,
             isPet: item.IsPet,
             isStop: item.IsStop,
-            category_id: item.category_id,
-            index: index + 1
+            category: nameC.name
         }
         
         return item;
         
     })
-    console.log('controller>>>>>>>>', data);
+    // console.log('controller>>>>>>>>', data);
     return data;
 }
 
 exports.getProductById = async (id) => {
     let product = await productService.getProductById(id);
-    product = {
+        let nameC = item.category_id;
+        product = {
         _id: product._id,
         name: product.Name,
         price: product.Price,
@@ -37,7 +39,7 @@ exports.getProductById = async (id) => {
         image: product.Image,
         isPet: product.IsPet,
         isStop: product.IsStop,
-        category_id: product.category_id,
+        category: nameC.name,
     }
     return product;
 }
@@ -69,6 +71,8 @@ exports.getProductsIsPet = async () => {
 }
 exports.getProductsItems = async (data) => {
     data = data.map((item, index) => {
+        let nameC = item.category_id;
+        // console.log(nameC);
         item = {
             _id: item._id,
             name: item.Name,
@@ -79,7 +83,7 @@ exports.getProductsItems = async (data) => {
             image: item.Image,
             isPet: item.IsPet,
             isStop: item.IsStop,
-            category_id: item.category_id,
+            category: nameC.name
         }
         
         return item;
@@ -92,6 +96,7 @@ exports.getProductsItems = async (data) => {
 exports.getProductsByTypeAndSoft = async () => {
     let data = await productService.getAccessoriesAndSoft();
     data = data.map((item, index) => {
+        let nameC = item.category_id;
         item = {
             _id: item._id,
             name: item.Name,
@@ -102,8 +107,7 @@ exports.getProductsByTypeAndSoft = async () => {
             image: item.Image,
             isPet: item.IsPet,
             isStop: item.IsStop,
-            category_id: item.category_id,
-            index: index + 1
+            category: nameC.name
         }
         
         return item;

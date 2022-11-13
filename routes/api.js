@@ -17,11 +17,7 @@ router.get('/get-all-user',async function(req,res,next){
   res.json(u)
 })
 
-router.get('/abc', async function (req, res, next) {
-   const data = "gehooooo";
-   res.json({ data: data});
-  
-});
+
 
 // http://localhost:3000/api/login
 router.post('/login', async function (req, res, next) {
@@ -71,16 +67,15 @@ router.delete('/favorite/:id',async function(req,res,next){
 
 // http://localhost:3000/api/products
 // thêm middle kiểm tra login
-// khi nào login, có token thì mới lấy được danh sách sản phẩm
-router.get('/products', [authentication.checkToken], async function (req, res, next) {
+
+router.get('/products', async function (req, res, next) {
   const products = await productController.getProducts();
   res.json(products);
 });
 
 // http://localhost:3000/api/products/:id/detail
 // thêm middle kiểm tra login
-// khi nào login, có token thì mới lấy được danh sách sản phẩm
-router.get('/products/:id/detail', [authentication.checkToken], async function (req, res, next) {
+router.get('/products/:id/detail', async function (req, res, next) {
   const { id } = req.params;
   const product = await productController.getProductById(id);
   res.json(product);
