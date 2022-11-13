@@ -156,6 +156,14 @@ router.get('/product/is-pet', async function (req, res, next) {
    res.json({ data: data});
 });
 
+// Xuất ds sp theo loại
+// http://localhost:3000/api/product/category/:category_id
+router.get('/product/category/:category_id', async function (req, res, next) {
+ const category_id2 = req.params.category_id;
+ console.log(category_id2);
+  const data = await productController.getProductByCategory(category_id2);
+   res.json({ data: data});
+});
 
 
 module.exports = router;

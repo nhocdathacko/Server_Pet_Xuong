@@ -69,6 +69,12 @@ exports.getProductsIsPet = async () => {
     let data = this.getProductsItems(products);
     return data;
 }
+// sp theo loại
+exports.getProductByCategory = async (category_id) => {
+    let products = await productService.getProductByCategory(category_id);
+    let data = this.getProductsItems(products);
+    return data;
+}
 exports.getProductsItems = async (data) => {
     data = data.map((item, index) => {
         let nameC = item.category_id;

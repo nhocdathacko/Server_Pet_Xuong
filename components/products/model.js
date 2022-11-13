@@ -8,7 +8,7 @@ const productSchema = new Schema({
     Price: { type: Number },
     Describes: {type: String},
     Evaluate: {type: Number},
-    category_id: { type: Schema.Types.ObjectId, ref: 'category' },
+    category_id: { type: String, ref: 'category' },
     Quantity: { type: Number },
     Image: { type: String },
     IsPet: {type: Boolean},

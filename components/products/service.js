@@ -23,6 +23,14 @@ exports.getProductById = async (id) => {
     return product;
 }
 
+/**
+ * lấy sản phẩm theo loại
+ */
+
+ exports.getProductByCategory = async (category_id) => {
+    const product = await productModel.find({ category_id: category_id}).populate('category_id');
+    return product;
+}
 exports.insert = async (product) => {
     const p = new productModel(product);
     await p.save();
