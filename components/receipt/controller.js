@@ -31,6 +31,7 @@ exports.getReceiptById = async (id) => {
        await this.insert(id);
        receipt = await receiptService.getReceiptsCart(id);
     }
+    console.log("<>>2<><>"+receipt+"><><><><>");
     return receipt;
 }
 

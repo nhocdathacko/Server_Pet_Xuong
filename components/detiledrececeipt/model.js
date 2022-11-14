@@ -5,7 +5,7 @@ const ObjectId = Schema.ObjectId;
 const receiptdetailSchema = new Schema({
     id: { type: ObjectId },
     ReceiptId: { type: ObjectId },
-    ProductId: { type: ObjectId },
+    ProductId: { type: ObjectId, ref: 'product' },
     Quantity: { type: Number },
     Price: {type: Number},
 
