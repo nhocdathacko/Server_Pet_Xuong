@@ -128,7 +128,7 @@ router.post('/evaluated/update', async (req, res, next) => {
 router.get('/cart/:id', async function (req, res, next) {
   const {id} = req.params;
    let cart = await receiptController.getReceiptById(id);
-   let data = await detailreceiptController.getDeReceiptByReceiptId(cart.id);
+   let data = await detailreceiptController.getDeReceiptByReceiptId(cart._id);
    res.json({ data: data});
 });
 // Đinh Quốc Đạt
@@ -136,13 +136,32 @@ router.get('/cart/:id', async function (req, res, next) {
 // Thêm sản phẩm vào giỏ gàng
 // http://localhost:3000/api/cart/add/:id
 router.post('/cart/add/:id', async (req, res, next) => {
-  // id user ởđịa chỉ
+  // id của user ở địa chỉ
   const {id} = req.params;
   const cart = await receiptController.getReceiptById(id);
+
   const data = req.body;
-  data.ReceiptId = cart._id;
+    // req.body gồm:
+  //   ReceiptId: { type: ObjectId },
+  //   ProductId: { type: ObjectId, ref: 'product' },
+  //   Quantity: { type: Number },
+  //   Price: {type: Number},
+  data.ReceiptId = cart.id;
   const detailCart = await detailreceiptController.insert(data);
   res.json({ detailCart: detailCart});
+})
+
+// Đinh Quốc Đạt
+// Giỏ hàng
+// Thanh toán giỏ gàng
+// http://localhost:3000/api/cart/buy
+router.post('/cart/buy', async (req, res, next) => {
+
+  //  giá trị isBill = true là hoàn thành
+  const data = req.body;
+  const result = await receiptController.update(data.id, data);
+
+  res.json({ result: result});
 })
 
 // Đào Duy Tín

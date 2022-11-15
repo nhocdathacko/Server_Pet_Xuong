@@ -12,7 +12,6 @@ exports.getDeReceiptById = async (id) => {
 }
 exports.getDeReceiptByReceiptId = async (ReceiptId) => {
     const deReceipt = await deReceiptModel.find({ReceiptId: ReceiptId});
-    console.log("<>><><>"+ReceiptId);
     return deReceipt;
 }
 
