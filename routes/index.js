@@ -13,7 +13,7 @@ const authentication = require('../components/middle/authentication');
 // detail: hiển thị trang login
 // author: Trần Võ Thục Miên
 // date: 17/3/2022
-router.get('/dang-nhap', [authentication.checkLogin], function (req, res, next) {
+router.get('/login', [authentication.checkLogin], function (req, res, next) {
   res.render('dangNhap', {});
 });
 
@@ -22,7 +22,7 @@ router.get('/dang-nhap', [authentication.checkLogin], function (req, res, next) 
 // detail: thực hiện đăng nhập
 // author: Trần Võ Thục Miên
 // date: 17/3/2022
-router.post('/dang-nhap', async function (req, res, next) {
+router.post('/login', async function (req, res, next) {
   const { email, password } = req.body;
 
   // thực hiện kiểm tra đăng nhập
@@ -46,10 +46,10 @@ router.post('/dang-nhap', async function (req, res, next) {
     req.session.token = token;
 
     //nếu đúng chuyển qua trang thống kê
-    res.redirect('/san-pham');
+    res.redirect('/index');
   } else {
     // nếu sai quay trở lại trang đăng nhập
-    res.redirect('/dang-nhap');
+    res.redirect('/login');
   }
 });
 
@@ -58,13 +58,32 @@ router.post('/dang-nhap', async function (req, res, next) {
 // detail: thực hiện đăng xuất
 // author: Trần Võ Thục Miên
 // date: 17/3/2022
-router.get('/dang-xuat', [authentication.checkLogin], function (req, res, next) {
+router.get('/dang-xuat', function (req, res, next) {
   req.session.destroy(function (err) {
     // nếu đăng xuất thành công chuyển qua đăng nhập
-    res.redirect('dang-nhap');
+    res.redirect('login');
   })
 });
-
+// http://localhost:3000/index
+router.get('/index', function (req, res, next) {
+  res.render('index', { layout: 'layout_index'});
+});
+// http://localhost:3000/product
+router.get('/product', function (req, res, next) {
+  res.render('products', { layout: 'layout_index'});
+});
+// http://localhost:3000/category
+router.get('/category', function (req, res, next) {
+  res.render('category', { layout: 'layout_index'});
+});
+// http://localhost:3000/user
+router.get('/user', function (req, res, next) {
+  res.render('user', { layout: 'layout_index'});
+});
+// http://localhost:3000/statistical
+router.get('/statistical', function (req, res, next) {
+  res.render('statistical', { layout: 'layout_index'});
+});
 module.exports = router;
 
 
