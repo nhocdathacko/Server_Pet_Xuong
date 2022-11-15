@@ -30,10 +30,17 @@ exports.register = async (name, username, email, phone, password) => {
     let userEmail = await userService.checkEmail(email);
     let userPhone = await userService.checkPhone(phone);
     let userUsername = await userService.checkUsername(username);
+    if(userEmail){
+        return {status: false, mess: "Email đã tồn tại"}
+    }else if(userPhone){
+        return {status: false, mess: "Số điện thoại đã tồn tại"}
+    }else if(userUsername){
+        return {status: false, mess: "Tên tài khoản đã tồn tại"}
+    }
     if (userEmail || userPhone || userUsername) return false;
     const hash = await bcrypt.hash(password, await bcrypt.genSalt(10));
     user = await userService.register(name, username, email, phone, hash);
-    return true;
+    return {status: true, mess: "Đăng kí thành công"}
 }
 
 exports.getAllUser = async () => {

@@ -38,10 +38,10 @@ router.post('/login', async function (req, res, next) {
 router.post('/register', async function (req, res, next) {
   const { name, username, email, phone, password } = req.body;
   const result = await userController.register(name, username, email, phone, password);
-  if (result) {
-    res.json({ status: true });
+  if (result.status) {
+    res.json({ status: result.status, message: result.mess});
   } else {
-    res.json({ status: false });
+    res.json({ status: result.status, message: result.mess });
   }
 });
 
