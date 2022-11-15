@@ -130,7 +130,6 @@ router.get('/cart/:id', async function (req, res, next) {
    let cart = await receiptController.getReceiptById(id);
    let data = await detailreceiptController.getDeReceiptByReceiptId(cart.id);
    res.json({ data: data});
-  
 });
 // Đinh Quốc Đạt
 // Giỏ hàng
@@ -171,6 +170,5 @@ router.get('/product/category/:category_id', async function (req, res, next) {
   const data = await productController.getProductByCategory(category_id2);
    res.json({ data: data});
 });
-
 
 module.exports = router;
