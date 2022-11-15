@@ -35,7 +35,7 @@ router.post('/login', async function (req, res, next) {
 
 
 // http://localhost:3000/api/register
-router.post('/register', async function (req, res, next) {
+router.post('/register', async function (req, res, nconext) {
   const { name, username, email, phone, password } = req.body;
   const result = await userController.register(name, username, email, phone, password);
   if (result) {
