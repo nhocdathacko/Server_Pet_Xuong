@@ -27,9 +27,9 @@ router.post('/login/username', async function (req, res, next) {
   if (result) {
     // token lấy ở đây
     const token = jwt.sign({ id: result.id, username: result.username }, 'iloveyou');
-    res.json({ status: true, result });
+    res.json({ status: true, result: result });
   } else {
-    res.json({ status: false, result: "Tên tài khoản không đúng" });
+    res.json({ status: false});
   }
 });
 // http://localhost:3000/api/login/email
@@ -39,9 +39,9 @@ router.post('/login/email', async function (req, res, next) {
   if (result) {
     // token lấy ở đây
     const token = jwt.sign({ id: result.id, username: result.username }, 'iloveyou');
-    res.json({ status: true, result });
+    res.json({ status: true,result: result });
   } else {
-    res.json({ status: false, result: "Email không đúng" });
+    res.json({ status: false});
   }
 });
 
