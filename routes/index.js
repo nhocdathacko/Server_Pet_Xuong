@@ -8,13 +8,13 @@ const authentication = require('../components/middle/authentication');
 
 /* GET home page. */
 
-// http://localhost:3000/dang-nhap
+// http://localhost:3000/login
 // method: get
 // detail: hiển thị trang login
 // author: Trần Võ Thục Miên
 // date: 17/3/2022
 router.get('/login', [authentication.checkLogin], function (req, res, next) {
-  res.render('dangNhap', {});
+  res.render('login', {});
 });
 
 // http://localhost:3000/dang-nhap
