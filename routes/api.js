@@ -20,19 +20,30 @@ router.get('/get-all-user',async function(req,res,next){
 
 
 
-// http://localhost:3000/api/login
-router.post('/login', async function (req, res, next) {
-  const { userx, password } = req.body;
-  const result = await userController.dangNhap(userx, password);
+// http://localhost:3000/api/login/username
+router.post('/login/username', async function (req, res, next) {
+  const { username, password } = req.body;
+  const result = await userController.dangNhap(username, password);
   if (result) {
     // token lấy ở đây
     const token = jwt.sign({ id: result.id, username: result.username }, 'iloveyou');
     res.json({ status: true, result });
   } else {
-    res.json({ status: false });
+    res.json({ status: false, result: "Tên tài khoản không đúng" });
   }
 });
-
+// http://localhost:3000/api/login/email
+router.post('/login/email', async function (req, res, next) {
+  const { email, password } = req.body;
+  const result = await userController.dangNhap(email, password);
+  if (result) {
+    // token lấy ở đây
+    const token = jwt.sign({ id: result.id, username: result.username }, 'iloveyou');
+    res.json({ status: true, result });
+  } else {
+    res.json({ status: false, result: "Email không đúng" });
+  }
+});
 
 // http://localhost:3000/api/register
 router.post('/register', async function (req, res, next) {
