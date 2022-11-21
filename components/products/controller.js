@@ -25,10 +25,68 @@ exports.getProducts = async () => {
     // console.log('controller>>>>>>>>', data);
     return data;
 }
+exports.getProducts2 = async () => {
+    let data = await productService.getProducts();
+    return await this.setDataProduct(data);
+    
+}
+exports.getProductIsStop = async (isStop) => {
+    let data = await productService.getProductIsStop(isStop);
+    return await this.setDataProduct(data);
+    
+}
+exports.getProductsByIsPet = async (state) => {
+    let data = await productService.getProductBy(state);
+    return await this.setDataProduct(data);
+    
+}
+exports.setDataProduct = async (data) => {
+    data = data.map((item, index) => {
+        let nameC = item.category_id;
+        item = {
+            _id: item._id,
+            index: index + 1,
+            name: item.Name,
+            price: item.Price,
+            describes: item.Describes,
+            evaluate: item.Evaluate,
+            quantity: item.Quantity,
+            image: item.Image,
+            isPet: item.IsPet,
+            isStop: item.IsStop,
+            category: nameC.name,
+            category_id: item.category_id
+        }
+        
+        return item;
+        
+    })
+    return data;
+}
+exports.setOneDataProduct = async (item) => {
+        item = {
+            _id: item._id,
+            name: item.Name,
+            price: item.Price,
+            describes: item.Describes,
+            evaluate: item.Evaluate,
+            quantity: item.Quantity,
+            image: item.Image,
+            isPet: item.IsPet,
+            isStop: item.IsStop,
+            category_id: item.category_id
+        }
+        
+        return item;
 
+}
+exports.getProductById2 = async (id) => {
+    let product = await productService.getProductById(id);
+    return await this.setOneDataProduct(product);
+}
 exports.getProductById = async (id) => {
     let product = await productService.getProductById(id);
-        let nameC = item.category_id;
+        let nameC = product.category_id;
         product = {
         _id: product._id,
         name: product.Name,

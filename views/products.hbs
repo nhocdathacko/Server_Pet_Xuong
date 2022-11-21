@@ -1,61 +1,68 @@
 <nav class="navbar navbar-default">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-      </div>
-      <div id="navbar" class="collapse navbar-collapse">
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="Trangchu.html">Dashboard</a></li>
-            <li><a href="Quanlythanhvien.html">Quản lý thành viên</a></li>
-            <li><a href="Loaisanphan.html">Loại sản phẩm</a></li>
-            <li><a href="Bangsanpham.html">Bảng sản phẩm</a></li>
-            <li><a href="Thongke.html">Thống kê</a></li>
-
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="#">Xin chào, Admin</a></li>
-          <li><a href="login.html">Logout</a></li>
-        </ul>
-      </div><!--/.nav-collapse -->
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+        aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
     </div>
-  </nav>
+    <div id="navbar" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li><a href="/index">Dashboard</a></li>
+        <li><a href="/user">Quản lý thành viên</a></li>
+        <li><a href="/category">Loại sản phẩm</a></li>
+        <li class="active"><a href="/product">Bảng sản phẩm</a></li>
+        <li><a href="/statistical">Thống kê</a></li>
 
-  <header id="header">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-10">
-          <h1><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>Quản lý Bảng Sản Phẩm</h1>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Xin chào, Admin</a></li>
+        <li><a href="login.html">Logout</a></li>
+      </ul>
+    </div>
+    <!--/.nav-collapse -->
+  </div>
+</nav>
+
+<header id="header">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10">
+        <h1><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>Quản lý Bảng Sản Phẩm</h1>
+      </div>
+      <div class="col-md-2">
+        <div class="dropdown create">
+          <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="true">
+            Chức năng
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <!--thêm khoa nè-->
+            <li><a onclick="" href="#">Thêm sản phẩm</a></li>
+            <li><a onclick="chucNangNho('false')" href="#">Danh sách thú cưng</a></li>
+            <li><a onclick="chucNangNho('true')" href="#">Danh sách phụ kiện</a></li>
+            <li><a onclick="chucNangNho('false')" href="#">Danh sách sản phẩm còn bán</a></li>
+            <li><a onclick="chucNangNho('true')" href="#">Danh sách sản phẩm dừng bán</a></li>
+            {{!-- <li><a onclick="chucNangNho('{{true}}}')" href="#">Danh sách phụ kiện</a></li> --}}
+          </ul>
         </div>
-        <div class="col-md-2">
-          <div class="dropdown create">
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-              Chức năng
-              <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-             <!--thêm khoa nè-->
-             <li><a href="#">Thêm Bảng sản phẩm</a></li>
-             <li><a href="#">Xuất báo cáo</a></li>
-           </ul>
-         </div>
-       </div>
-     </div>
-   </div>
- </header>
+      </div>
+    </div>
+  </div>
+</header>
 
- <section id="breadcrumb">
+<section id="breadcrumb">
   <div class="container">
     <ol class="breadcrumb">
-     <!-- Chuyển đến Trang tổng hợp nè-->
-     <li><a href="index.html">Dashboard</a></li>
-     <li class="active">Bảng sản phẩm</li>
-   </ol>
- </div>
+      <!-- Chuyển đến Trang tổng hợp nè-->
+      <li><a href="index.html">Dashboard</a></li>
+      <li class="active">Bảng sản phẩm</li>
+    </ol>
+  </div>
 </section>
 
 <section id="main">
@@ -63,29 +70,35 @@
     <div class="row">
       <div class="col-md-3">
         <div class="list-group">
-          <a href="index.html" class="list-group-item active main-color-bg">
+          <a href="/index" class="list-group-item  ">
             <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Bảng điều khiển
           </a>
-          <a href="Quanlythanhvien.html" class="list-group-item"><span class="glyphicon glyphicon-user"
-            aria-hidden="true"></span> Quản lý thành viên</a>
-    <a href="Loaisanphan.html" class="list-group-item"><span class="glyphicon glyphicon-list-alt"
-            aria-hidden="true"></span> Loại sản phẩm</a>
-    <a href="Bangsanpham.html" class="list-group-item"><span class="glyphicon glyphicon-calendar"
-            aria-hidden="true"></span> Bảng sản phẩm</a>
-    <a href="Thongke.html" class="list-group-item"><span class="glyphicon glyphicon-stats"
-            aria-hidden="true"></span> Thống kê</a>
+          <a href="/user" class="list-group-item">
+            <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Quản lý thành viên
+          </a>
+          <a href="/category" class="list-group-item">
+            <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Loại sản phẩm
+          </a>
+          <a href="/product" class="list-group-item main-color-bg">
+            <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Bảng sản phẩm
+          </a>
+          <a href="/statistical" class="list-group-item">
+            <span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Thống kê
+          </a>
         </div>
 
         <div class="well">
           <h4>Khoa đang hoạt động</h4>
           <div class="progress">
-            <div class="progress-bar" role="progressbar" aria-valuenow="6" aria-valuemin="0" aria-valuemax="100" style="width: 75%;">
+            <div class="progress-bar" role="progressbar" aria-valuenow="6" aria-valuemin="0" aria-valuemax="100"
+              style="width: 75%;">
               6
             </div>
           </div>
           <h4>Khoa dừng hoạt động </h4>
           <div class="progress">
-            <div class="progress-bar" role="progressbar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+            <div class="progress-bar" role="progressbar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="100"
+              style="width: 25%;">
               2
             </div>
           </div>
@@ -108,53 +121,98 @@
                 <th>STT</th>
                 <th>Name</th>
                 <th>Price</th>
-                <th>Describes</th>
+                {{!-- <th>Describes</th> --}}
                 <th>Evaluated</th>
-                <th>CategoryId</th>
+                <th>Category</th>
                 <th>Quantity</th>
                 <th>Image</th>
                 <th>IsPet</th>
                 <th>isStop</th>
                 <th></th>
               </tr>
+              {{#each product}}
               <tr>
-                <td>1</td>
-                <td>Thức ăn cho chó</td>
-                <td>100.000</td>
-                <td>Thức ăn cho chó</td>
-                <td>4.5</td>
-                <td>1</td>
-                <td>100</td>
-                <td><img
-                    src="https://scontent.fhan5-1.fna.fbcdn.net/v/t39.30808-6/313416231_10228295482189144_754678216726270851_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=0UGLG25EX2oAX-AVbD6&_nc_ht=scontent.fhan5-1.fna&oh=00_AfA-z8_NRjdtPMcgolP4mgxAr6wOHMcXBkmbiDd_0b7ZgA&oe=6372576F"
-                    alt="" width="50px" height="50px"></td>  
-                <td>1</td>
-                <td>0</td>
-                <td><a class="btn btn-default" href="#">Sửa</a> <a class="btn btn-danger" href="#">Xóa</a></td>
+
+                <td>{{this.index}}</td>
+                <td>{{this.name}}</td>
+                <td>{{this.price}}</td>
+                {{!-- <td style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">{{this.describes}}</td>
+                --}}
+                <td>{{this.evaluate}}</td>
+                <td>{{this.category}}</td>
+                <td>{{this.quantity}}</td>
+                <td><img src="{{this.image}}" alt="" width="50px" height="50px"></td>
+                <td>{{this.isPet}}</td>
+                <td>{{this.isStop}}</td>
+                <td>
+                  <a class="btn btn-default" onclick="detail('{{this._id}}')">Sửa</a> 
+                  <a class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" 
+                  onclick="goDelete('{{this._id}}')">Xóa</a>
+                </td>
               </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Thức ăn cho mèo</td>
-                    <td>100.000</td>
-                    <td>Thức ăn cho mèo</td>
-                    <td>4.5</td>
-                    <td>2</td>
-                    <td>100</td>
-                    <td><img
-                        src="https://scontent.fhan5-1.fna.fbcdn.net/v/t39.30808-6/313416231_10228295482189144_754678216726270851_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=0UGLG25EX2oAX-AVbD6&_nc_ht=scontent.fhan5-1.fna&oh=00_AfA-z8_NRjdtPMcgolP4mgxAr6wOHMcXBkmbiDd_0b7ZgA&oe=6372576F"
-                        alt="" width="50px" height="50px"></td>  
-                    <td>1</td>
-                    <td>0</td>
-                    <td><a class="btn btn-default" href="#">Sửa</a> <a class="btn btn-danger" href="#">Xóa</a></td>
-      </table>
+              {{/each}}
+            </table>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
-
-</div>
-</div>
-</div>
 </section>
 
 <footer id="footer">
-    <p>Design by Hoang Van Bay</p>
+  <p>Design by Hoang Van Bay</p>
 </footer>
+
+{{!-- Bootstrap modal --}}
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLabel">Cảnh báo</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Bạn có chắc chắn muốn xóa không</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+        <button type="button" class="btn btn-danger" onclick="onDelete()">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  const chucNangNho = (name) => {
+    window.location.href = `/product/${name}`
+  }
+
+  let deleted_id;
+  const goDelete = (id) => {
+    deleted_id = id;
+  }
+  const fetchAPI = async (url, option) => {
+        const res = await fetch(url, option);
+        return res.json();
+    }
+  const onDelete = async () => {
+    const url = `http://localhost:3000/product/delete/${deleted_id}`;
+    const option = {
+      method: 'delete',
+      headers: { 'Content-Type': 'application/json' }
+    }
+    try {
+      await fetchAPI(url, option);
+      window.location.href = '/product';
+    } catch (e) { console.log('Delete error: ', e) }
+  }
+  const detail = (id) => {
+        window.location.href = `/detail/${id}/product`
+    }
+</script>

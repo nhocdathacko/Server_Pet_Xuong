@@ -153,8 +153,8 @@ router.post('/cart/add/:id', async (req, res, next) => {
 
   const data = req.body;
     // req.body gồm:
-  //   ReceiptId: { type: ObjectId },
-  //   ProductId: { type: ObjectId, ref: 'product' },
+  //   ReceiptId: null,
+  //   ProductId: { type: ObjectId},
   //   Quantity: { type: Number },
   //   Price: {type: Number},
   data.ReceiptId = cart.id;
@@ -170,7 +170,9 @@ router.post('/cart/buy', async (req, res, next) => {
 
   //  giá trị isBill = true là hoàn thành
   const data = req.body;
-  const result = await receiptController.update(data.id, data);
+  const cart = await receiptController.getReceiptById(data.id);
+  cart.isBill = data.isBill;
+  const result = await receiptController.update(cart._id, cart);
 
   res.json({ result: result});
 })

@@ -45,5 +45,17 @@ exports.register = async (name, username, email, phone, password) => {
 
 exports.getAllUser = async () => {
     let user = await userService.getAllUser();
+    user = user.map((item, index) => {
+        item = {
+            index: index + 1,
+            _id: item._id,
+            name : item.name,
+            username : item.username,
+            email : item.email, 
+            phone: item.phone,
+            image : item.image
+        }
+        return item;
+    })
     return user;
 }

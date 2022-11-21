@@ -10,6 +10,7 @@ const userSchema = new Schema({
     email: { type: String, required: true },
     phone: { type: String, required: true },
     password: { type: String },
+    status: { type: Boolean, default:true },
 });
 
 // user số ít

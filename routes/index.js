@@ -3,8 +3,15 @@ var router = express.Router();
 
 const jwt = require('jsonwebtoken');
 
-const userController = require('../components/users/controller');
 const authentication = require('../components/middle/authentication');
+
+const userController = require('../components/users/controller');
+const categoriesController = require('../components/category/controller');
+const productController = require('../components/products/controller');
+const evaluatedController = require('../components/evaluated/controller');
+const favoriteController = require('../components/favorite/favorite');
+const receiptController = require('../components/receipt/controller');
+const detailreceiptController = require('../components/detiledrececeipt/controller');
 
 /* GET home page. */
 
@@ -14,10 +21,10 @@ const authentication = require('../components/middle/authentication');
 // author: Trần Võ Thục Miên
 // date: 17/3/2022
 router.get('/login', [authentication.checkLogin], function (req, res, next) {
-  res.render('login', {});
+  res.render('login');
 });
 
-// http://localhost:3000/dang-nhap
+// http://localhost:3000/login
 // method: post
 // detail: thực hiện đăng nhập
 // author: Trần Võ Thục Miên
@@ -34,7 +41,7 @@ router.post('/login', async function (req, res, next) {
 
   }
 
-  if (result) {
+  if (result && (email === "admin123@gmail.com" & password == "000000")) {
 
     // secret key
     const token = jwt.sign(
@@ -65,23 +72,88 @@ router.get('/dang-xuat', function (req, res, next) {
   })
 });
 // http://localhost:3000/index
-router.get('/index', function (req, res, next) {
-  res.render('index', { layout: 'layout_index'});
+router.get('/index',async function (req, res, next) {
+  
+  res.render('index', { layout: 'layout_index', });
 });
 // http://localhost:3000/product
-router.get('/product', function (req, res, next) {
-  res.render('products', { layout: 'layout_index'});
+router.get('/product',async function (req, res, next) {
+  const product = await productController.getProducts2();
+  // console.log(">>>>>>>", product);
+  res.render('products', { layout: 'layout_index', product: product });
+});
+// http://localhost:3000/product/:name
+router.get('/product/:name',async function (req, res, next) {
+  let name = req.params.name;
+  let product;
+  if(name == "stop"){
+    product = await productController.getProductIsStop(true);
+  }else if(name == "nonstop"){
+    product = await productController.getProductIsStop(false);
+  }else{
+    product = await productController.getProductsByIsPet(name);
+  }
+  res.render('products', { layout: 'layout_index', product: product });
+});
+// http://localhost:3000/product/update/:name
+router.post('/product/update/:id', async function(req, res, next) {
+ const {id} = req.params;
+ console.log(req.body);
+ let product = await productController.getProductById(id);
+ product = {
+  Name: req.body.name,
+  Price: req.body.price,
+  Describes: req.body.describes,
+  Evaluate: req.body.evaluate,
+  Quantity: req.body.quantity,
+  Image: req.body.image,
+  category_id: req.body.category_id,
+  IsPet: req.body.isPet,
+  IsStop: req.body.isStop,
+}
+ await productController.update(id, product);
+ res.redirect('/product');
+});
+// http://localhost:3000/product/delete/:name
+router.delete('/product/delete/:id', async function(req, res, next) {
+  // xóa sản phẩm
+ const {id} = req.params;
+ await productController.delete(id);
+ res.json({result: true});
+});
+// http://localhost:3000/detail/:id/product
+router.get('/detail/:id/product',async function (req, res, next) {
+  let id = req.params.id;
+  
+  let product = await productController.getProductById2(id);
+  let result = {
+    T: true,
+    F: false,
+    reprP: product.isPet,
+    reprS: product.isStop};
+    console.log(result);
+  const category = await categoriesController.getCategoriesForOneProduct(product.category_id._id); 
+  res.render('detail-product', { layout: 'layout_index', product: product, category: category, result: result });  
 });
 // http://localhost:3000/category
-router.get('/category', function (req, res, next) {
-  res.render('category', { layout: 'layout_index'});
+router.get('/category',async function (req, res, next) {
+  const category = await categoriesController.getCategories2();
+  res.render('category', { layout: 'layout_index', category: category});
+});
+// http://localhost:3000/category/:name
+router.delete('/category/delete/:id', async function(req, res, next) {
+  // xóa sản phẩm
+ const {id} = req.params;
+ await categoriesController.delete(id);
+ res.json({result: true});
 });
 // http://localhost:3000/user
-router.get('/user', function (req, res, next) {
-  res.render('user', { layout: 'layout_index'});
+router.get('/user',async function (req, res, next) {
+  const user = await userController.getAllUser();
+  res.render('user', { layout: 'layout_index', user: user});  
 });
 // http://localhost:3000/statistical
-router.get('/statistical', function (req, res, next) {
+router.get('/statistical',async function (req, res, next) {
   res.render('statistical', { layout: 'layout_index'});
 });
 module.exports = router;

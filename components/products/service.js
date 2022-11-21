@@ -64,11 +64,19 @@ exports.update = async (id, product) => {
         const products = await productModel.find({IsPet: true, IsStop: false}).populate('category_id');
         return products;
 }
-    
+
+exports.getProductBy = async (isPet) => {
+    const products = await productModel.find({IsPet: isPet, IsStop: false}).populate('category_id');
+    return products;
+}
+exports.getProductIsStop = async (isStop) => {
+    const products = await productModel.find({ IsStop: isStop}).populate('category_id');
+    return products;
+}
 
 
 /**
- * lấy thông tin chi tiết 1 sản phẩm trong đó sản phẩm là 1 phụ kiện 
+ * lấy thông tin chi tiết sản phẩm trong đó sản phẩm là 1 phụ kiện 
  * và sắp xếp theo điểm đánh giá
  */
  exports.getAccessoriesAndSoft = async () => {
