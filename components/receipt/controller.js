@@ -79,5 +79,5 @@ exports.delete = async (id) => {
 }
 
 exports.update = async (id, receipt) => {
-    await receiptService.update(id, receipt);
+    return await receiptService.update(id, receipt);
 }
