@@ -159,11 +159,12 @@ router.post('/cart/add/:id', async (req, res, next) => {
   //   Quantity: { type: Number },
   //   Price: {type: Number},
   data = {
-    ReceiptId: cart.id, 
+    ReceiptId: cart._id, 
     ProductId: data.ProductId,
     Quantity: data.Quantity,
     Price: data.Price
   }
+  console.log(data)
   const detailCart = await detailreceiptController.insert(data);
   res.json({ detailCart: detailCart});
 })
@@ -177,8 +178,19 @@ router.post('/cart/buy', async (req, res, next) => {
   //  giá trị isBill = true là hoàn thành
   const data = req.body;
   const cart = await receiptController.getReceiptById(data.id);
-  cart.isBill = data.isBill;
+  cart.IsBill = data.isBill;
   const result = await receiptController.update(cart._id, cart);
+
+  res.json({ result: result});
+})
+// Đinh Quốc Đạt
+// Giỏ hàng
+// Thanh toán giỏ gàng
+// http://localhost:3000/api/cart/buy
+router.delete('/cart/buy/:id', async (req, res, next) => {
+
+  const {id} = req.params;
+  let result = await detailreceiptController.delete(id);
 
   res.json({ result: result});
 })
