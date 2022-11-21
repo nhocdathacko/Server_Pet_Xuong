@@ -139,6 +139,7 @@ router.post('/evaluated/update', async (req, res, next) => {
 router.get('/cart/:id', async function (req, res, next) {
   const {id} = req.params;
    let cart = await receiptController.getReceiptById(id);
+   console.log(">>>>>>>>><<<<<<<<<<"+cart._id);
    let data = await detailreceiptController.getDeReceiptByReceiptId(cart._id);
    res.json({ data: data});
 });
@@ -148,10 +149,10 @@ router.get('/cart/:id', async function (req, res, next) {
 // http://localhost:3000/api/cart/add/:id
 router.post('/cart/add/:id', async (req, res, next) => {
   // id của user ở địa chỉ
-  const {id} = req.params;
-  const cart = await receiptController.getReceiptById(id);
+  let {id} = req.params;
+  let cart = await receiptController.getReceiptById(id);
 
-  const data = req.body;
+  let data = req.body;
     // req.body gồm:
   //   ReceiptId: null,
   //   ProductId: { type: ObjectId},
