@@ -186,12 +186,24 @@ router.post('/cart/buy', async (req, res, next) => {
 })
 // Đinh Quốc Đạt
 // Giỏ hàng
-// Thanh toán giỏ gàng
-// http://localhost:3000/api/cart/buy
-router.delete('/cart/buy/:id', async (req, res, next) => {
+// delete giỏ gàng
+// http://localhost:3000/api/cart/delete
+router.delete('/cart/delete/:id', async (req, res, next) => {
   const {id} = req.params;
   let result = await detailreceiptController.delete(id);
-
+  res.json({ result: result});
+})
+// update giỏ gàng
+// http://localhost:3000/api/cart/delete
+router.post('/cart/update', async (req, res, next) => {
+  let data = req.body;
+  data = {
+    ReceiptId: data._id, 
+    ProductId: data.ProductId,
+    Quantity: data.Quantity,
+    Price: data.Price
+  }
+  let result = await detailreceiptController.update2(id, data);
   res.json({ result: result});
 })
 

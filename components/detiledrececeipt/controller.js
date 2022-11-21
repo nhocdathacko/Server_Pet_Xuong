@@ -80,4 +80,7 @@ exports.delete = async (id) => {
 exports.update = async (id, set) => {
     await deReceiptService.update(id, set);
 }
+exports.update2 = async (id, data) => {
+    return await deReceiptService.update2(id, data);
+}
 
