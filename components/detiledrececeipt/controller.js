@@ -74,7 +74,7 @@ exports.insert = async (body) => {
 }
 
 exports.delete = async (id) => {
-    await deReceiptService.delete(id);
+   return await deReceiptService.delete(id);
 }
 
 exports.update = async (id, set) => {

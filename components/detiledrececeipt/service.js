@@ -25,7 +25,15 @@ exports.insert = async (product) => {
 }
 
 exports.delete = async (id) => {
-    await deReceiptModel.findByIdAndDelete(id);
+    let result;
+    await deReceiptModel.findByIdAndDelete(id).then(data => {
+        console.log(">>>>>" + data);
+        result = true;
+      }).catch(err => {
+        console.log("thất bại");
+        result = false;
+      });
+    return result;
 }
 exports.update = async (id, set) => {
     const detailedreceipt = await deReceiptModel.findById(id);
