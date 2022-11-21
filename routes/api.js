@@ -159,7 +159,7 @@ router.post('/cart/add/:id', async (req, res, next) => {
   //   Quantity: { type: Number },
   //   Price: {type: Number},
   data = {
-    ReceiptId: cart.id, 
+    ReceiptId: cart._id, 
     ProductId: data.ProductId,
     Quantity: data.Quantity,
     Price: data.Price
