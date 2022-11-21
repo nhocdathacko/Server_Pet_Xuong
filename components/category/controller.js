@@ -11,15 +11,10 @@ exports.getCategoryById = async (id) => {
 exports.getCategoriesForOneProduct = async (selectedId) => {
     let categories = await categoryController.getCategories();
     categories = categories.map(item => {
-        // if (item._id == selectedId) {
-        //     item = { ...item, selectedId: true };
-        // } else {
-        //     item = { ...item, selectedId: false };
-        // }
         item = {
             _id: item._id,
             name: item.name,
-            description: item.description,
+            image: item.image,
             selected: item._id.toString() == selectedId.toString()
         }
         return item;

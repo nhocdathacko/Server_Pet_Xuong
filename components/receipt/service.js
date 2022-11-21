@@ -4,16 +4,25 @@
 const receiptModel = require('./model');
 
 /**
- * lấy danh sách sản phẩm
+ * lấy danh sách lịch sử giao dịch 
  */
 
 exports.getReceipts = async () => {
     // return data;
     // select
-    const receipts = await receiptModel.find();
+    const receipts = await receiptModel.find({IsBill: true});
     return receipts;
 }
+/**
+ * lấy giỏ hàng
+ */
 
+ exports.getReceiptsCart = async (UserId) => {
+    // return data;
+    // select
+    const receipts = await receiptModel.findOne({UserId: UserId, IsBill: false});
+    return receipts;
+}
 /**
  * lấy thông tin chi tiết 
  */
@@ -23,16 +32,18 @@ exports.getReceiptById = async (id) => {
     return receipts;
 }
 
-exports.insert = async (product) => {
-    // data.push(product);
-    const p = new receiptModel(product);
-    await p.save();
+exports.insert = async (receipt) => {
+    const p = new receiptModel(receipt);
+    await p.save().then((data) =>{
+        return data
+    })
+    .catch((error) => console.log(error));
 }
 
 exports.delete = async (id) => {
     await receiptModel.findByIdAndDelete(id);
 }
 
-exports.update = async (id, product) => {
-    await receiptModel.findByIdAndUpdate(id, product);
+exports.update = async (id, receipt) => {
+    await receiptModel.findByIdAndUpdate(id, receipt);
 }

@@ -4,7 +4,10 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
+const swaggerJsDoc = require("swagger-jsdoc");
+const swaggerUI = require("swagger-ui-express");
 var logger = require('morgan');
+const cors = require("cors");
 
 const session = require('express-session');
 const mongoose = require('mongoose');
@@ -21,6 +24,7 @@ var apiRouter = require('./routes/api');
 var categoriesRouter = require('./routes/categories');
 var receiptsRouter = require('./routes/receipt');
 var dereceiptsRouter = require('./routes/detailedreceipt');
+var swaggerRouter = require('./routes/swagger');
 
 var app = express();
 
@@ -55,7 +59,30 @@ app.use('/api', apiRouter);
 app.use('/categories', categoriesRouter);
 app.use('/receipt', receiptsRouter);
 app.use('/detailedreceipt', dereceiptsRouter);
+app.use('/swagger', swaggerRouter);
 
+
+// swagger
+const options = {
+	definition: {
+		openapi: "3.0.0",
+		info: {
+			title: "Library API",
+			version: "1.0.0",
+			description: "A simple Express Library API",
+		},
+		servers: [
+			{
+				url: "http://localhost:3000/",
+			},
+		],
+	},
+	apis: ["./routes/*.js"],
+};
+const specs = swaggerJsDoc(options);
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
+app.use(cors());
+// swagger
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -72,5 +99,6 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
 
 module.exports = app;

@@ -1,7 +1,21 @@
 const deReceiptService = require('./service');
 const date = require('../../utils/date');
 const async = require('hbs/lib/async');
+const receiptController = require('../receipt/controller');
 
+
+// lấy dữ liệu chi tiết giỏ hàng (nếu chưa có giỏ hàng thì sẽ tạo giỏ)
+exports.getDetailReceiptsCartUser = async (id) => {
+    let cart = await receiptController.getReceiptsCart(id);
+    if(cart){
+      let data = await this.getDeReceiptByReceiptId(cart._id);
+      return data;
+    }else{
+      cart = await receiptController.insert(id);
+      let data = await this.getDeReceiptByReceiptId(cart.ReceiptId);
+      return data;
+    }
+}
 exports.getDeReceipts = async () => {
     let data = await deReceiptService.getDeReceipt();
     data = data.map((item, index) => {
@@ -16,6 +30,24 @@ exports.getDeReceipts = async () => {
         return item;
         
     })
+    console.log('controller>>>>>>>>', data);
+    return data;
+}
+exports.getDeReceiptByReceiptId = async (ReceiptId) => {
+    let data = await deReceiptService.getDeReceiptByReceiptId(ReceiptId);
+    if (data) {
+        data = data.map((item, index) => {
+            item = {
+                _id: item._id,
+                receipt_id: item.ReceiptId,
+                product_id: item.ProductId,
+                quantity: item.Quantity,
+                price: item.Price
+            }
+            return item;
+            
+        })
+    }
     console.log('controller>>>>>>>>', data);
     return data;
 }
@@ -34,7 +66,11 @@ exports.getDeReceiptById = async (id) => {
 
 
 exports.insert = async (body) => {
-    await deReceiptService.insert(body);
+    const data = await deReceiptService.insert(body);
+    if (!data) {
+        return true;
+    }
+    return false;
 }
 
 exports.delete = async (id) => {

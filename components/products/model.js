@@ -12,7 +12,7 @@ const productSchema = new Schema({
     Quantity: { type: Number },
     Image: { type: String },
     IsPet: {type: Boolean},
-    IsShop: {type: Boolean},    
+    IsStop: {type: Boolean},
     
 });
 
