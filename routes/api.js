@@ -157,7 +157,12 @@ router.post('/cart/add/:id', async (req, res, next) => {
   //   ProductId: { type: ObjectId},
   //   Quantity: { type: Number },
   //   Price: {type: Number},
-  data.ReceiptId = cart.id;
+  data = {
+    ReceiptId: cart.id, 
+    ProductId: data.ProductId,
+    Quantity: data.Quantity,
+    Price: data.Price
+  }
   const detailCart = await detailreceiptController.insert(data);
   res.json({ detailCart: detailCart});
 })
