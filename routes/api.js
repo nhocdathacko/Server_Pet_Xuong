@@ -177,9 +177,8 @@ router.post('/cart/buy', async (req, res, next) => {
   //  giá trị isBill = true là hoàn thành
   const data = req.body;
   const cart = await receiptController.getReceiptById(data.id);
-  cart.isBill = data.isBill;
+  cart.IsBill = data.IsBill;
   const result = await receiptController.update(cart._id, cart);
-
   res.json({ result: result});
 })
 
