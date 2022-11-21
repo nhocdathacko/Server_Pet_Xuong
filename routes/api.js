@@ -198,12 +198,13 @@ router.delete('/cart/delete/:id', async (req, res, next) => {
 router.post('/cart/update', async (req, res, next) => {
   let data = req.body;
   data = {
-    ReceiptId: data._id, 
+    _id: data._id,
+    ReceiptId: data.ReceiptId, 
     ProductId: data.ProductId,
     Quantity: data.Quantity,
     Price: data.Price
   }
-  let result = await detailreceiptController.update2(id, data);
+  let result = await detailreceiptController.update2(data._id, data);
   res.json({ result: result});
 })
 
