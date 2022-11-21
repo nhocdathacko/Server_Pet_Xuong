@@ -185,9 +185,9 @@ router.post('/cart/buy', async (req, res, next) => {
 })
 // Đinh Quốc Đạt
 // Giỏ hàng
-// Thanh toán giỏ gàng
-// http://localhost:3000/api/cart/buy
-router.delete('/cart/buy/:id', async (req, res, next) => {
+// xóa 1 
+// http://localhost:3000/api/cart/delete/:id
+router.delete('/cart/delete/:id', async (req, res, next) => {
 
   const {id} = req.params;
   let result = await detailreceiptController.delete(id);
