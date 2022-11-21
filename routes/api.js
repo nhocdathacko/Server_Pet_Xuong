@@ -179,6 +179,7 @@ router.post('/cart/buy', async (req, res, next) => {
   const data = req.body;
   const cart = await receiptController.getReceiptById(data.id);
   cart.IsBill = data.isBill;
+  cart.SumMoney = data.sumMoney;
   const result = await receiptController.update(cart._id, cart);
 
   res.json({ result: result});
