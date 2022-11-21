@@ -188,7 +188,6 @@ router.post('/cart/buy', async (req, res, next) => {
 // Thanh toán giỏ gàng
 // http://localhost:3000/api/cart/buy
 router.delete('/cart/buy/:id', async (req, res, next) => {
-
   const {id} = req.params;
   let result = await detailreceiptController.delete(id);
 
