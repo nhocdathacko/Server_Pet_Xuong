@@ -103,7 +103,7 @@ exports.getProductById = async (id) => {
 }
 
 exports.insert = async (body) => {
-    await productService.insert(body);
+    return await productService.insert(body);
 }
 
 exports.delete = async (id) => {

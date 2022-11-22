@@ -42,11 +42,11 @@
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
             <!--thêm khoa nè-->
-            <li><a onclick="" href="#">Thêm sản phẩm</a></li>
-            <li><a onclick="chucNangNho('false')" href="#">Danh sách thú cưng</a></li>
-            <li><a onclick="chucNangNho('true')" href="#">Danh sách phụ kiện</a></li>
-            <li><a onclick="chucNangNho('false')" href="#">Danh sách sản phẩm còn bán</a></li>
-            <li><a onclick="chucNangNho('true')" href="#">Danh sách sản phẩm dừng bán</a></li>
+            <li><a onclick="onInsert()">Thêm sản phẩm</a></li>
+            <li><a onclick="chucNangNho('false')">Danh sách thú cưng</a></li>
+            <li><a onclick="chucNangNho('true')">Danh sách phụ kiện</a></li>
+            <li><a onclick="chucNangNho('stop')" >Danh sách sản phẩm còn bán</a></li>
+            <li><a onclick="chucNangNho('nonstop')" >Danh sách sản phẩm dừng bán</a></li>
             {{!-- <li><a onclick="chucNangNho('{{true}}}')" href="#">Danh sách phụ kiện</a></li> --}}
           </ul>
         </div>
@@ -126,8 +126,8 @@
                 <th>Category</th>
                 <th>Quantity</th>
                 <th>Image</th>
-                <th>IsPet</th>
-                <th>isStop</th>
+                {{!-- <th>IsPet</th>
+                <th>isStop</th> --}}
                 <th></th>
               </tr>
               {{#each product}}
@@ -142,8 +142,8 @@
                 <td>{{this.category}}</td>
                 <td>{{this.quantity}}</td>
                 <td><img src="{{this.image}}" alt="" width="50px" height="50px"></td>
-                <td>{{this.isPet}}</td>
-                <td>{{this.isStop}}</td>
+                {{!-- <td>{{this.isPet}}</td>
+                <td>{{this.isStop}}</td> --}}
                 <td>
                   <a class="btn btn-default" onclick="detail('{{this._id}}')">Sửa</a> 
                   <a class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" 
@@ -192,7 +192,9 @@
   const chucNangNho = (name) => {
     window.location.href = `/product/${name}`
   }
-
+  const onInsert = () => {
+    window.location.href = `/add-product`
+  }
   let deleted_id;
   const goDelete = (id) => {
     deleted_id = id;

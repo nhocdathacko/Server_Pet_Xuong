@@ -114,6 +114,25 @@ router.post('/product/update/:id', async function(req, res, next) {
  await productController.update(id, product);
  res.redirect('/product');
 });
+// http://localhost:3000/add-product
+router.get('/add-product',async function (req, res, next) {
+  let result = {
+    T: true,
+    F: false
+  };
+  const category = await categoriesController.getCategories();
+  res.render('add-product', { layout: 'layout_index', category: category, result: result });  
+});
+// http://localhost:3000/product/add
+router.post('/add-product', async function(req, res, next) {
+  let result = await productController.insert(req.body);
+  if (result == true) {
+    res.redirect('/product');
+  }else{
+    res.render('add-product');
+  }
+  
+ });
 // http://localhost:3000/product/delete/:name
 router.delete('/product/delete/:id', async function(req, res, next) {
   // xóa sản phẩm

@@ -33,7 +33,15 @@ exports.getProductById = async (id) => {
 }
 exports.insert = async (product) => {
     const p = new productModel(product);
-    await p.save();
+    await p.save()
+    .then(data => {
+        console.log(">>>>>" + data);
+        result = true;
+      }).catch(err => {
+        console.log("thất bại");
+        result = false;
+      });
+    return result;
 }
 
 exports.delete = async (id) => {
