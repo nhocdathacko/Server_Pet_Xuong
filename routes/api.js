@@ -3,6 +3,7 @@ var router = express.Router();
 
 const jwt = require('jsonwebtoken');
 const userController = require('../components/users/controller');
+const categoriesController = require('../components/category/controller');
 const productController = require('../components/products/controller');
 const evaluatedController = require('../components/evaluated/controller');
 const authentication = require('../components/middle/authentication');
@@ -17,36 +18,48 @@ router.get('/get-all-user',async function(req,res,next){
   res.json(u)
 })
 
-router.get('/abc', async function (req, res, next) {
-   const data = "gehooooo";
-   res.json({ data: data});
-  
-});
 
-// http://localhost:3000/api/login
-router.post('/login', async function (req, res, next) {
-  const { userx, password } = req.body;
-  const result = await userController.dangNhap(userx, password);
+
+// http://localhost:3000/api/login/username
+router.post('/login/username', async function (req, res, next) {
+  const { username, password } = req.body;
+  const result = await userController.dangNhap(username, password);
   if (result) {
     // token lấy ở đây
     const token = jwt.sign({ id: result.id, username: result.username }, 'iloveyou');
-    res.json({ status: true, result });
+    res.json({ status: true, result: result });
   } else {
-    res.json({ status: false });
+    res.json({ status: false});
+  }
+});
+// http://localhost:3000/api/login/email
+router.post('/login/email', async function (req, res, next) {
+  const { email, password } = req.body;
+  const result = await userController.dangNhap(email, password);
+  if (result) {
+    // token lấy ở đây
+    const token = jwt.sign({ id: result.id, username: result.username }, 'iloveyou');
+    res.json({ status: true,result: result });
+  } else {
+    res.json({ status: false});
   }
 });
 
-
 // http://localhost:3000/api/register
-
-router.post('/register', async function (req, res, next) {
+router.post('/register', async function (req, res, nconext) {
   const { name, username, email, phone, password } = req.body;
   const result = await userController.register(name, username, email, phone, password);
-  if (result) {
-    res.json({ status: true });
+  if (result.status) {
+    res.json({ status: result.status, message: result.mess});
   } else {
-    res.json({ status: false });
+    res.json({ status: result.status, message: result.mess });
   }
+});
+
+// http://localhost:3000/api/get-all-category
+router.get('/get-all-category', async function (req, res, next) {
+  const data = await categoriesController.getCategories();
+  res.json(data);
 });
 
 router.get('/favorite',async function(req,res,next){
@@ -71,16 +84,16 @@ router.delete('/favorite/:id',async function(req,res,next){
 
 // http://localhost:3000/api/products
 // thêm middle kiểm tra login
+
 // khi nào login, có token thì mới lấy được danh sách sản phẩm
-router.get('/products', [authentication.checkToken], async function (req, res, next) {
+router.get('/products', async function (req, res, next) {
   const products = await productController.getProducts();
   res.json(products);
 });
 
 // http://localhost:3000/api/products/:id/detail
 // thêm middle kiểm tra login
-// khi nào login, có token thì mới lấy được danh sách sản phẩm
-router.get('/products/:id/detail', [authentication.checkToken], async function (req, res, next) {
+router.get('/products/:id/detail', async function (req, res, next) {
   const { id } = req.params;
   const product = await productController.getProductById(id);
   res.json(product);
@@ -126,22 +139,73 @@ router.post('/evaluated/update', async (req, res, next) => {
 router.get('/cart/:id', async function (req, res, next) {
   const {id} = req.params;
    let cart = await receiptController.getReceiptById(id);
-   let data = await detailreceiptController.getDeReceiptByReceiptId(cart.id);
+   console.log(">>>>>>>>><<<<<<<<<<"+cart._id);
+   let data = await detailreceiptController.getDeReceiptByReceiptId(cart._id);
    res.json({ data: data});
-  
 });
 // Đinh Quốc Đạt
 // Giỏ hàng
 // Thêm sản phẩm vào giỏ gàng
 // http://localhost:3000/api/cart/add/:id
 router.post('/cart/add/:id', async (req, res, next) => {
-  // id user ởđịa chỉ
-  const {id} = req.params;
-  const cart = await receiptController.getReceiptById(id);
-  const data = req.body;
-  data.ReceiptId = cart._id;
+  // id của user ở địa chỉ
+  let {id} = req.params;
+  let cart = await receiptController.getReceiptById(id);
+
+  let data = req.body;
+    // req.body gồm:
+  //   ReceiptId: null,
+  //   ProductId: { type: ObjectId},
+  //   Quantity: { type: Number },
+  //   Price: {type: Number},
+  data = {
+    ReceiptId: cart._id, 
+    ProductId: data.ProductId,
+    Quantity: data.Quantity,
+    Price: data.Price
+  }
+  console.log(data)
   const detailCart = await detailreceiptController.insert(data);
   res.json({ detailCart: detailCart});
+})
+
+// Đinh Quốc Đạt
+// Giỏ hàng
+// Thanh toán giỏ gàng
+// http://localhost:3000/api/cart/buy
+router.post('/cart/buy', async (req, res, next) => {
+
+  //  giá trị isBill = true là hoàn thành
+  const data = req.body;
+  const cart = await receiptController.getReceiptById(data.id);
+  cart.IsBill = data.isBill;
+  cart.SumMoney = data.sumMoney;
+  const result = await receiptController.update(cart._id, cart);
+
+  res.json({ result: result});
+})
+// Đinh Quốc Đạt
+// Giỏ hàng
+// delete giỏ gàng
+// http://localhost:3000/api/cart/delete
+router.delete('/cart/delete/:id', async (req, res, next) => {
+  const {id} = req.params;
+  let result = await detailreceiptController.delete(id);
+  res.json({ result: result});
+})
+// update giỏ gàng
+// http://localhost:3000/api/cart/delete
+router.post('/cart/update', async (req, res, next) => {
+  let data = req.body;
+  data = {
+    _id: data._id,
+    ReceiptId: data.ReceiptId, 
+    ProductId: data.ProductId,
+    Quantity: data.Quantity,
+    Price: data.Price
+  }
+  let result = await detailreceiptController.update2(data._id, data);
+  res.json({ result: result});
 })
 
 // Đào Duy Tín
@@ -161,6 +225,13 @@ router.get('/product/is-pet', async function (req, res, next) {
    res.json({ data: data});
 });
 
-
+// Xuất ds sp theo loại
+// http://localhost:3000/api/product/category/:category_id
+router.get('/product/category/:category_id', async function (req, res, next) {
+ const category_id2 = req.params.category_id;
+ console.log(category_id2);
+  const data = await productController.getProductByCategory(category_id2);
+   res.json({ data: data});
+});
 
 module.exports = router;

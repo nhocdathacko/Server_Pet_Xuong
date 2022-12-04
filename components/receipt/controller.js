@@ -31,6 +31,7 @@ exports.getReceiptById = async (id) => {
        await this.insert(id);
        receipt = await receiptService.getReceiptsCart(id);
     }
+    console.log("<>>2<><>"+receipt+"><><><><>");
     return receipt;
 }
 
@@ -78,5 +79,5 @@ exports.delete = async (id) => {
 }
 
 exports.update = async (id, receipt) => {
-    await receiptService.update(id, receipt);
+    return await receiptService.update(id, receipt);
 }

@@ -13,17 +13,15 @@
       <ul class="nav navbar-nav">
         <li><a href="/index">Dashboard</a></li>
         <li><a href="/user">Quản lý thành viên</a></li>
-        <li><a href="/category">Loại sản phẩm</a></li>
-        <li class="active"><a href="/product">Bảng sản phẩm</a></li>
+        <li class="active"><a href="/category">Loại sản phẩm</a></li>
+        <li><a href="/product">Bảng sản phẩm</a></li>
         <li><a href="/statistical">Thống kê</a></li>
-
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#">Xin chào, Admin</a></li>
         <li><a href="login.html">Logout</a></li>
       </ul>
     </div>
-    <!--/.nav-collapse -->
   </div>
 </nav>
 
@@ -31,7 +29,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-10">
-        <h1><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>Quản lý Bảng Sản Phẩm</h1>
+        <h1><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>Quản lý Loại Sản Phẩm<small></small></h1>
       </div>
       <div class="col-md-2">
         <div class="dropdown create">
@@ -41,13 +39,8 @@
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <!--thêm khoa nè-->
-            <li><a onclick="onInsert()">Thêm sản phẩm</a></li>
-            <li><a onclick="chucNangNho('false')">Danh sách thú cưng</a></li>
-            <li><a onclick="chucNangNho('true')">Danh sách phụ kiện</a></li>
-            <li><a onclick="chucNangNho('stop')" >Danh sách sản phẩm còn bán</a></li>
-            <li><a onclick="chucNangNho('nonstop')" >Danh sách sản phẩm dừng bán</a></li>
-            {{!-- <li><a onclick="chucNangNho('{{true}}}')" href="#">Danh sách phụ kiện</a></li> --}}
+            <li><a href="#">Thêm loại sản phẩm</a></li>
+            <li><a href="#">Xuất báo cáo</a></li>
           </ul>
         </div>
       </div>
@@ -58,9 +51,8 @@
 <section id="breadcrumb">
   <div class="container">
     <ol class="breadcrumb">
-      <!-- Chuyển đến Trang tổng hợp nè-->
-      <li><a href="index.html">Dashboard</a></li>
-      <li class="active">Bảng sản phẩm</li>
+      <li><a href="Trangchu.html">Dashboard</a></li>
+      <li class="active">Loại sản phẩm</li>
     </ol>
   </div>
 </section>
@@ -76,30 +68,30 @@
           <a href="/user" class="list-group-item">
             <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Quản lý thành viên
           </a>
-          <a href="/category" class="list-group-item">
+          <a href="/category" class="list-group-item main-color-bg">
             <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Loại sản phẩm
           </a>
-          <a href="/product" class="list-group-item main-color-bg">
+          <a href="/product" class="list-group-item ">
             <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Bảng sản phẩm
           </a>
-          <a href="/statistical" class="list-group-item">
+          <a href="/statistical" class="list-group-item ">
             <span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Thống kê
           </a>
         </div>
 
         <div class="well">
-          <h4>Khoa đang hoạt động</h4>
+          <h4>Loại sản phẩm hoạt động</h4>
           <div class="progress">
-            <div class="progress-bar" role="progressbar" aria-valuenow="6" aria-valuemin="0" aria-valuemax="100"
+            <div class="progress-bar" role="progressbar" aria-valuenow="3" aria-valuemin="0" aria-valuemax="100"
               style="width: 75%;">
-              6
+              3
             </div>
           </div>
-          <h4>Khoa dừng hoạt động </h4>
+          <h4>Loại sản phẩm tạm dừng hoạt động</h4>
           <div class="progress">
-            <div class="progress-bar" role="progressbar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="100"
+            <div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100"
               style="width: 25%;">
-              2
+              1
             </div>
           </div>
         </div>
@@ -107,12 +99,12 @@
       <div class="col-md-9">
         <div class="panel panel-default">
           <div class="panel-heading main-color-bg">
-            <h3 class="panel-title">Bảng sản phẩm</h3>
+            <h3 class="panel-title">Loại sản phẩm</h3>
           </div>
           <div class="panel-body">
             <div class="row">
               <div class="col-md-12">
-                <input class="form-control" type="text" placeholder="Lọc sản phẩm">
+                <input class="form-control" type="text" placeholder="Lọc loại san phẩm">
               </div>
             </div>
             <br>
@@ -120,34 +112,17 @@
               <tr>
                 <th>STT</th>
                 <th>Name</th>
-                <th>Price</th>
-                {{!-- <th>Describes</th> --}}
-                <th>Evaluated</th>
-                <th>Category</th>
-                <th>Quantity</th>
                 <th>Image</th>
-                {{!-- <th>IsPet</th>
-                <th>isStop</th> --}}
                 <th></th>
               </tr>
-              {{#each product}}
+              {{#each category}}
               <tr>
-
                 <td>{{this.index}}</td>
                 <td>{{this.name}}</td>
-                <td>{{this.price}}</td>
-                {{!-- <td style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">{{this.describes}}</td>
-                --}}
-                <td>{{this.evaluate}}</td>
-                <td>{{this.category}}</td>
-                <td>{{this.quantity}}</td>
                 <td><img src="{{this.image}}" alt="" width="50px" height="50px"></td>
-                {{!-- <td>{{this.isPet}}</td>
-                <td>{{this.isStop}}</td> --}}
                 <td>
-                  <a class="btn btn-default" onclick="detail('{{this._id}}')">Sửa</a> 
-                  <a class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" 
-                  onclick="goDelete('{{this._id}}')">Xóa</a>
+                  <a class="btn btn-default" href="#">Sửa</a>
+                  <a class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Xóa</a>
                 </td>
               </tr>
               {{/each}}
@@ -164,8 +139,9 @@
   <p>Design by Hoang Van Bay</p>
 </footer>
 
-{{!-- Bootstrap modal --}}
 
+
+{{!-- Bootstrap modal --}}
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -181,28 +157,18 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-        <button type="button" class="btn btn-danger" onclick="onDelete()">Yes</button>
+        <button type="button" class="btn btn-danger">Yes</button>
       </div>
     </div>
   </div>
 </div>
 
-
 <script>
-  const chucNangNho = (name) => {
-    window.location.href = `/product/${name}`
-  }
-  const onInsert = () => {
-    window.location.href = `/add-product`
-  }
+
   let deleted_id;
   const goDelete = (id) => {
     deleted_id = id;
   }
-  const fetchAPI = async (url, option) => {
-        const res = await fetch(url, option);
-        return res.json();
-    }
   const onDelete = async () => {
     const url = `http://localhost:3000/product/delete/${deleted_id}`;
     const option = {
@@ -211,10 +177,7 @@
     }
     try {
       await fetchAPI(url, option);
-      window.location.href = '/product';
+      window.location.href = '/category';
     } catch (e) { console.log('Delete error: ', e) }
   }
-  const detail = (id) => {
-        window.location.href = `/detail/${id}/product`
-    }
 </script>

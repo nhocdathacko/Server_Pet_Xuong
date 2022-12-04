@@ -45,5 +45,14 @@ exports.delete = async (id) => {
 }
 
 exports.update = async (id, receipt) => {
-    await receiptModel.findByIdAndUpdate(id, receipt);
+    let result;
+    await receiptModel.findByIdAndUpdate(id, receipt)
+    .then(data => {
+        console.log(">>>>>" + data);
+        result = true;
+      }).catch(err => {
+        console.log("thất bại");
+        result = false;
+      });
+    return result;
 }

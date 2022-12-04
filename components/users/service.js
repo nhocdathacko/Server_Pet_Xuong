@@ -29,3 +29,8 @@ exports.getAllUser = async () => {
     const user = await userModel.find();
     return user;
 }
+
+exports.update = async (id, user) => {
+    let result = await userModel.findByIdAndUpdate(id, user);
+    return result;
+}

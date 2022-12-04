@@ -12,7 +12,6 @@ exports.getDeReceiptById = async (id) => {
 }
 exports.getDeReceiptByReceiptId = async (ReceiptId) => {
     const deReceipt = await deReceiptModel.find({ReceiptId: ReceiptId});
-    console.log("<>><><>"+ReceiptId);
     return deReceipt;
 }
 
@@ -26,7 +25,15 @@ exports.insert = async (product) => {
 }
 
 exports.delete = async (id) => {
-    await deReceiptModel.findByIdAndDelete(id);
+    let result;
+    await deReceiptModel.findByIdAndDelete(id).then(data => {
+        console.log(">>>>>" + data);
+        result = true;
+      }).catch(err => {
+        console.log("thất bại");
+        result = false;
+      });
+    return result;
 }
 exports.update = async (id, set) => {
     const detailedreceipt = await deReceiptModel.findById(id);
@@ -35,10 +42,21 @@ exports.update = async (id, set) => {
     }
 
     const { Quantity } = detailedreceipt;
-
+    let result;
     if(set == 0){
-        const update = await deReceiptModel.findByIdAndUpdate(id, {Quantity: Quantity});
+        result = await deReceiptModel.findByIdAndUpdate(id, {Quantity: Quantity});
     }else if(set == 1){
-        const update = await deReceiptModel.findByIdAndUpdate(id, {Quantity: Quantity});
+        result = await deReceiptModel.findByIdAndUpdate(id, {Quantity: Quantity});
     }
+}
+exports.update2 = async (id, detailCart) => {
+    let result;
+    await deReceiptModel.findByIdAndUpdate(id, detailCart).then(data => {
+        console.log(">>>>>" + data);
+        result = true;
+      }).catch(err => {
+        console.log("thất bại");
+        result = false;
+      });
+    return result;
 }
