@@ -30,7 +30,7 @@ exports.getCategoriesForOneProduct = async (selected) => {
     return categories;
 }
 exports.getCategoryById = async (id) => {
-    return await categoryController.getCategoryById();
+    return await categoryController.getCategoryById(id);
 }
 
 exports.getCategoriesForOneProduct = async (selectedId) => {
@@ -45,4 +45,13 @@ exports.getCategoriesForOneProduct = async (selectedId) => {
         return item;
     })
     return categories;
+}
+
+exports.insert = async (categories) => {
+    let result = await categoryController.insert(categories);
+    return result;
+}
+exports.delete = async (id) => {
+    let result = await categoryController.delete(id);
+    return result;
 }

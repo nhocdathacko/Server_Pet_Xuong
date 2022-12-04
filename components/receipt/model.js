@@ -4,7 +4,7 @@ const ObjectId = Schema.ObjectId;
 
 const receiptSchema = new Schema({
     id: { type: ObjectId },
-    UserId: { type: ObjectId },
+    UserId: { type: ObjectId, ref: 'user' },
     date: { type: Date },
     SumMoney: {type: Number},
     IsBill: {type: Boolean}, 

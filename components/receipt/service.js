@@ -10,9 +10,11 @@ const receiptModel = require('./model');
 exports.getReceipts = async () => {
     // return data;
     // select
-    const receipts = await receiptModel.find({IsBill: true});
+    const receipts = await receiptModel.find({IsBill: true}).populate('UserId');
     return receipts;
 }
+
+
 /**
  * lấy giỏ hàng
  */
@@ -28,7 +30,32 @@ exports.getReceipts = async () => {
  */
 
 exports.getReceiptById = async (id) => {
-    const receipts = await receiptModel.findById(id).populate('');
+    const receipts = await receiptModel.findById(id).populate('UserId');
+    return receipts;
+}
+
+exports.getReceiptByDate = async (_date1, _date2) => {
+    
+    let Day1 = _date1;
+    let Month1 = Day1.getMonth()+1;
+    let a = Day1.getFullYear() + "-"+ Month1 + "-"+Day1.getDate();
+    console.log("server a: ")
+    console.log(a)
+    let Day2 = _date2;
+    let Month2 = Day2.getMonth()+1;
+    let b = Day2.getFullYear() + "-" + Month2 + "-" + Day2.getDate();
+    console.log("server b: ")
+    console.log(b)
+
+    
+    const receipts = await receiptModel.find({
+        date: 
+        {
+            $gte: a,
+            $lt: b 
+        },
+        IsBill: true
+    }).populate('UserId');
     return receipts;
 }
 
@@ -48,7 +75,7 @@ exports.update = async (id, receipt) => {
     let result;
     await receiptModel.findByIdAndUpdate(id, receipt)
     .then(data => {
-        console.log(">>>>>" + data);
+        console.log("Thêm thành công" );
         result = true;
       }).catch(err => {
         console.log("thất bại");

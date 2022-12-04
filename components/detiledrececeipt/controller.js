@@ -19,18 +19,20 @@ exports.getDetailReceiptsCartUser = async (id) => {
 exports.getDeReceipts = async () => {
     let data = await deReceiptService.getDeReceipt();
     data = data.map((item, index) => {
+        let receipt_id = item.ReceiptId;
+        let product_id = item.ProductId;
         item = {
             _id: item._id,
-            receipt_id: receipt.receipt_id,
-            product_id: receipt.product_id,
-            quantity: receipt.quantity,
-            price: receipt.price,
+            user_id: receipt_id.UserId,
+            product_id: product_id._id,
+            date: receipt_id.date,
+            quantity: item.Quantity,
+            price: item.Price,
             index: index + 1
         }
         return item;
         
     })
-    console.log('controller>>>>>>>>', data);
     return data;
 }
 exports.getDeReceiptByReceiptId = async (ReceiptId) => {
@@ -48,7 +50,6 @@ exports.getDeReceiptByReceiptId = async (ReceiptId) => {
             
         })
     }
-    console.log('controller>>>>>>>>', data);
     return data;
 }
 

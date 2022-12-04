@@ -2,12 +2,12 @@ const deReceiptModel = require('./model');
 
 exports.getDeReceipt = async () => {
     // return data; 
-    const deReceipt = await deReceiptModel.find({});
+    const deReceipt = await deReceiptModel.find().populate('ReceiptId').populate('ProductId');
     return deReceipt;
 }
 
 exports.getDeReceiptById = async (id) => {
-    const deReceipt = await deReceiptModel.findById(id).populate('receipt_id');
+    const deReceipt = await deReceiptModel.findById(id);
     return deReceipt;
 }
 exports.getDeReceiptByReceiptId = async (ReceiptId) => {

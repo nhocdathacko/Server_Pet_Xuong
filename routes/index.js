@@ -73,8 +73,17 @@ router.get('/dang-xuat', function (req, res, next) {
 });
 // http://localhost:3000/index
 router.get('/index',async function (req, res, next) {
-  
-  res.render('index', { layout: 'layout_index', });
+  let a = new Date();
+  let b = new Date();
+  b.setDate(a.getDate() + 1);
+  let {SumM, SumP}= await receiptController.getReceiptDate(a, b);
+  SumM = SumM / 1000;
+  console.log("indexx: ");
+  console.log(a.getMonth());
+  const Week = await receiptController.getReceiptWeek(a);
+  // const Week = [55, 49, 44, 24, 15, 12, 100];
+  console.log( Week);
+  res.render('index', { layout: 'layout_index',moneyNow: SumM, quantityNow: SumP, Week: Week });
 });
 // http://localhost:3000/product
 router.get('/product',async function (req, res, next) {
@@ -159,12 +168,32 @@ router.get('/category',async function (req, res, next) {
   const category = await categoriesController.getCategories2();
   res.render('category', { layout: 'layout_index', category: category});
 });
-// http://localhost:3000/category/:name
+// http://localhost:3000/category/delete/:id
 router.delete('/category/delete/:id', async function(req, res, next) {
   // xóa sản phẩm
  const {id} = req.params;
  await categoriesController.delete(id);
  res.json({result: true});
+});
+// http://localhost:3000/add-category
+router.get('/add-category', async function(req, res, next) {
+    res.render('add-category', { layout: 'layout_index'});
+});
+// http://localhost:3000/add-category
+router.post('/add-category', async function(req, res, next) {
+  let result = await categoriesController.insert(req.body);
+  if (result == true) {
+    res.redirect('/category');
+  }else{
+    res.render('add-category');
+  }
+});
+// http://localhost:3000/detail-category/:id
+router.get('/detail-category/:id', async function(req, res, next) {
+  let id = req.params.id;
+  console.log("..."+id);
+  const category = await categoriesController.getCategoryById(id);
+  res.render('detail_category', { layout: 'layout_index', category: category});
 });
 // http://localhost:3000/user
 router.get('/user',async function (req, res, next) {

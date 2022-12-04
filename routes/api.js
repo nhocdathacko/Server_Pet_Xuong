@@ -12,6 +12,7 @@ const receiptController = require('../components/receipt/controller');
 const detailreceiptController = require('../components/detiledrececeipt/controller');
 
 
+
 // http://localhost:3000/api/get-all-user
 router.get('/get-all-user',async function(req,res,next){
   const u = await userController.getAllUser();
@@ -180,6 +181,7 @@ router.post('/cart/buy', async (req, res, next) => {
   const cart = await receiptController.getReceiptById(data.id);
   cart.IsBill = data.isBill;
   cart.SumMoney = data.sumMoney;
+  console.log(cart._id+ "cart/buy > Money: " + cart);
   const result = await receiptController.update(cart._id, cart);
 
   res.json({ result: result});
@@ -233,5 +235,25 @@ router.get('/product/category/:category_id', async function (req, res, next) {
   const data = await productController.getProductByCategory(category_id2);
    res.json({ data: data});
 });
+
+// Test Get API
+// http://localhost:3000/api/test/get/:id
+router.get('/test/get/:id', async function (req, res, next) {
+  const _id = req.params._id;
+  // const data = await productController.getProductByCategory(category_id2);
+  let a = new Date("2022-12-04");
+  let b = new Date("2022-11-30");
+  
+  b.setDate(a.getDate() + 1);
+  
+  console.log("--------------");
+  console.log(a.getDate());
+  // console.log(b);
+
+  const data = await receiptController.getReceiptWeek(a);
+
+  res.json({ data: data});
+ });
+
 
 module.exports = router;

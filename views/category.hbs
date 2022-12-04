@@ -39,7 +39,7 @@
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li><a href="#">Thêm loại sản phẩm</a></li>
+            <li><a href="/add-category">Thêm loại sản phẩm</a></li>
             <li><a href="#">Xuất báo cáo</a></li>
           </ul>
         </div>
@@ -121,8 +121,8 @@
                 <td>{{this.name}}</td>
                 <td><img src="{{this.image}}" alt="" width="50px" height="50px"></td>
                 <td>
-                  <a class="btn btn-default" href="#">Sửa</a>
-                  <a class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Xóa</a>
+                  <a class="btn btn-default" onClick="detail('{{this._id}}')" >Sửa</a>
+                  <a onclick="goDelete('{{this._id}}')" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Xóa</a>
                 </td>
               </tr>
               {{/each}}
@@ -157,7 +157,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-        <button type="button" class="btn btn-danger">Yes</button>
+        <button onclick="onDelete()" type="button" class="btn btn-danger">Yes</button>
       </div>
     </div>
   </div>
@@ -168,9 +168,14 @@
   let deleted_id;
   const goDelete = (id) => {
     deleted_id = id;
+    console.log(deleted_id);
   }
+  const fetchAPI = async (url, option) => {
+        const res = await fetch(url, option);
+        return res.json();
+    }
   const onDelete = async () => {
-    const url = `http://localhost:3000/product/delete/${deleted_id}`;
+    const url = `http://localhost:3000/category/delete/${deleted_id}`;
     const option = {
       method: 'delete',
       headers: { 'Content-Type': 'application/json' }
@@ -180,4 +185,7 @@
       window.location.href = '/category';
     } catch (e) { console.log('Delete error: ', e) }
   }
+  const detail = (id) => {
+        window.location.href = `/detail-category/${id}`
+    }
 </script>
