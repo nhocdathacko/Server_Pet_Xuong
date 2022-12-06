@@ -202,7 +202,11 @@ router.get('/user',async function (req, res, next) {
 });
 // http://localhost:3000/statistical
 router.get('/statistical',async function (req, res, next) {
-  res.render('statistical', { layout: 'layout_index'});
+  
+  let a = new Date();
+  let b = new Date();
+  let Month = await  receiptController.getReceiptMonth(a, b);
+  res.render('statistical', { layout: 'layout_index', Month: Month});
 });
 module.exports = router;
 

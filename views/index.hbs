@@ -129,7 +129,6 @@
                         {{!-- <div id="columnchart_values"></div> --}}
                         <div id="myPlot" style="width:100%;max-width:700px"></div>
                         <input type="text" id="data" value="{{Week}}" hidden />
-                        <input type="text" id="myPlot2" value="" hidden />
                     </div>
                 </div>
             </div>
@@ -140,56 +139,13 @@
 <footer id="footer">
     <p>Design by Hoang Van Bay</p>
 </footer>
-{{!--
-<script>
-    google.charts.load("current", { packages: ['corechart'] });
-    google.charts.setOnLoadCallback(drawChart);
 
-
-
-
-    function drawChart(week) {
-        var data = google.visualization.arrayToDataTable([
-            ["Element", "Money", { role: "style" }],
-            [week[0].Day, 8.94, "blue"],
-            ["T3", 10771, "blue"],
-            ["T4", 19.30, "blue"],
-            ["T5", 13, "blue"],
-            ["T6", 19.30, "blue"],
-            ["T7", 19.30, "blue"],
-            ["CN", 21.45, "blue"]
-        ]);
-
-
-
-        var view = new google.visualization.DataView(data);
-        view.setColumns([0, 1,
-            {
-                calc: "stringify",
-                sourceColumn: 1,
-                type: "string",
-                role: "annotation"
-            },
-            2]);
-
-        var options = {
-            title: "Doan thu của cửa hàng trong tuần nàytheo ngày",
-            width: 800,
-            height: 400,
-            bar: { groupWidth: "95%" },
-            legend: { position: "none" },
-        };
-        var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
-        chart.draw(view, options);
-    }
-</script> --}}
 <script>
     let a = document.getElementById("data").value;
-
     var xArray = ["CN", "T2", "T3", "T4", "T5", "T6", "T7"];
     var yArray = a.split(',');
+    console.log(a.split(','));
 
-    document.getElementById("myPlot2").value = a[2];
     
 
     var data = [{

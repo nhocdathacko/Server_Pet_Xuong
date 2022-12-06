@@ -87,6 +87,42 @@ exports.getReceiptWeek = async (_date1) => {
     return arrWeek;
 }
 
+exports.getReceiptMonth = async (_date1, _date2) =>{
+
+    _date1.setDate(1);
+    _date1.setMonth(0);
+
+    _date2.setDate(1);
+    _date2.setMonth(1);
+
+
+    var arrMonth = [];
+    let Sum = 0;
+
+    for (let i = 0; i < 12; i++) {
+
+        let month =  await receiptService.getReceiptByDate(_date1, _date2);
+
+        if (month == null) {
+            Sum = 0;
+        }else {
+            month = month.map((item, index) => {
+                Sum = (item.SumMoney / 1000);
+            })
+        }
+        arrMonth.push(Sum);
+
+        _date1.setDate(1);
+        _date1.setMonth(_date1.getMonth() + 1);
+        
+        _date2.setDate(1);
+        _date2.setMonth(_date2.getMonth() + 1);
+        
+    }
+    return arrMonth;
+
+}
+
 function getDayOfMonth(month) {
     if (month == 1 || month == 3 || month == 5 || month == 7 || month == 10 || month == 12) {
         return 0;
@@ -131,6 +167,8 @@ function getDayOfWeek(date) {
     console.log(day_name + ">>>" + current_day);
     return day_name;
 }
+
+
 // lấy thông tin giỏ hàng nếu không có giỏ hàng thì sẽ tạo giỏi hàng mới
 exports.getReceiptById = async (id) => {
     let receipt = await receiptService.getReceiptsCart(id);

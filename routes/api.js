@@ -246,11 +246,8 @@ router.get('/test/get/:id', async function (req, res, next) {
   
   b.setDate(a.getDate() + 1);
   
-  console.log("--------------");
-  console.log(a.getDate());
-  // console.log(b);
-
-  const data = await receiptController.getReceiptWeek(a);
+  let data = await  receiptController.getReceiptMonth(a, b);
+  // console.log(Month);
 
   res.json({ data: data});
  });
