@@ -115,7 +115,7 @@
                         <div class="col-md-6">
                             <div class="well dash-box">
                                 <h2><span class="glyphicon glyphicon-euro" aria-hidden="true"></span></h2>
-                                <h4>Doanh thu hôn nay</h4>
+                                <h4>Doanh thu hôm nay</h4>
                                 <h3>{{moneyNow}}$</h3>
                             </div>
                         </div>
@@ -123,7 +123,7 @@
                 </div>
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Doan thu của cửa hàng trong tuần này</h3>
+                        <h3 class="panel-title">Doanh thu của cửa hàng trong tuần này</h3>
                     </div>
                     <div class="panel-body">
                         {{!-- <div id="columnchart_values"></div> --}}
@@ -142,8 +142,19 @@
 
 <script>
     let a = document.getElementById("data").value;
+
+    let b = a.split(',');
+
+    let arr = [];
+    
+
+    for (let i = 0; i < b.length; i++) {
+        let c = Number(b[i])/1000
+        
+        arr.push(c);
+    }
     var xArray = ["CN", "T2", "T3", "T4", "T5", "T6", "T7"];
-    var yArray = a.split(',');
+    var yArray = arr;
     console.log(a.split(','));
 
     

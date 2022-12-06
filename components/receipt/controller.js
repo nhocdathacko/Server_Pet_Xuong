@@ -22,6 +22,24 @@ exports.getReceipts = async () => {
     })
     return data;
 }
+
+exports.getReceiptsByUser = async (UserId) => {
+    let data = await receiptService.getRegetReceiptsByUserceipts(UserId);
+    data = data.map((item, index) => {
+        item = {
+            _id: item._id,
+            userid: item.UserId,
+            date: item.date + "",
+            summoney: item.SumMoney,
+            isbill: item.IsBill,
+            index: index + 1
+        }
+
+        return item;
+
+    })
+    return data;
+}
 // lấy thông tin lịch sử giao dịch
 exports.getReceiptDate = async (_date1, _date2) => {
 

@@ -13,6 +13,12 @@ exports.getReceipts = async () => {
     const receipts = await receiptModel.find({IsBill: true}).populate('UserId');
     return receipts;
 }
+exports.getReceiptsByUser = async (UserId) => {
+    // return data;
+    // select
+    const receipts = await receiptModel.find({IsBill: true}, {UserId: UserId});
+    return receipts;
+}
 
 
 /**
@@ -25,6 +31,7 @@ exports.getReceipts = async () => {
     const receipts = await receiptModel.findOne({UserId: UserId, IsBill: false});
     return receipts;
 }
+
 /**
  * lấy thông tin chi tiết 
  */
